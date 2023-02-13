@@ -1,0 +1,106 @@
+.e-header {
+    background-color: $color-main-black;
+    height: 150px;
+
+    display: flex;
+    align-items: center;
+    padding: 10px 60px;
+
+    &__nav-container {
+        display: flex;
+        width: 100%;
+        gap: 100px;
+        justify-content: space-between;
+        align-items: center;
+
+        &__logo {
+            max-width: max-content;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            height: 100%;
+            width: 100%;
+
+            img {
+                max-width: 100px;
+                max-height: 100px;
+                object-fit: contain;
+                display: block;
+                width: 100%;
+                height: 100%;
+            }
+
+            p {
+                margin: 0;
+                display: flex;
+                flex-direction: column;
+                font-size: $font-h1;
+                text-align: center;
+                color: $color-main-blue;
+                text-shadow: 0px 0px 10px $color-main-green;
+                font-family: getSchwitfy;
+                text-shadow: 2px 0 $color-main-green, -2px 0 $color-main-green, 0 2px $color-main-green, 0 -2px $color-main-green,
+                    1px 1px $color-main-green, -1px -1px $color-main-green, 1px -1px $color-main-green, -1px 1px $color-main-green;
+            }
+        }
+
+        &__content {
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+
+            &__section {
+                width: 100%;
+
+                &1 {
+                    color: $color-main-blue;
+                    border-bottom: 1px solid #fff;
+                    padding: 20px 0;
+                    width: 100%;
+                    text-align: center;
+
+                    .heading_2 {
+                        margin: 0;
+                    }
+                }
+
+                &2 {
+                    width: 100%;
+                    display: flex;
+                    justify-content: space-between;
+                    padding: 20px 0px;
+
+                    a {
+                        text-align: center;
+                        flex: 1;
+                        font-size: $font-p1;
+                        padding: 0 20px;
+                        color: #fff;
+                        text-decoration: none;
+                        border-right: 1px solid #fff;
+
+                        &:last-child {
+                            border: none;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.heading_1 {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    font-size: $font-h1;
+    text-align: center;
+    color: $color-main-blue;
+    text-shadow: 0px 0px 10px $color-main-green;
+    font-family: getSchwitfy;
+    text-shadow: 2px 0 $color-main-green, -2px 0 $color-main-green, 0 2px $color-main-green, 0 -2px $color-main-green,
+        1px 1px $color-main-green, -1px -1px $color-main-green, 1px -1px $color-main-green, -1px 1px $color-main-green;
+}

@@ -8,8 +8,8 @@
     "@testing-library/user-event": "^13.2.1",
     "@types/jest": "^27.0.1",
     "@types/node": "^16.7.13",
-    "@types/react": "^18.0.0",
-    "@types/react-dom": "^18.0.0",
+    "@types/react": "^18.0.27",
+    "@types/react-dom": "^18.0.10",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
@@ -17,7 +17,10 @@
     "web-vitals": "^2.1.0"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "clean": "rm -rf dist",
+    "initiate": "concurrently \"yarn sass\" \"react-scripts start\"",
+    "start": "react-scripts start && concurrently \"yarn sass\"",
+    "sass": "concurrently \"sass --watch src/components/styles/scss/styles.scss:src/components/styles/css/styles.css --no-source-map\" \"sass --watch src/components/styles/scss/styles.scss:src/components/styles/css/styles.css --style compressed --no-source-map\"",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
@@ -55,6 +58,7 @@
     "eslint-plugin-promise": "^6.0.0",
     "eslint-plugin-react": "^7.32.0",
     "eslint-plugin-react-hooks": "^4.6.0",
+    "file-loader": "^6.2.0",
     "prettier": "^2.8.3"
   }
 }
