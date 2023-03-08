@@ -8,8 +8,9 @@
         "eslint:recommended",
         "plugin:react/recommended",
         "plugin:@typescript-eslint/recommended",
-        "prettier" 
-      ],
+        "prettier",
+        "react-app"
+    ],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
         "ecmaFeatures": {
@@ -19,7 +20,10 @@
         "sourceType": "module"
     },
     "plugins": [
-        "react", "react-hooks", "@typescript-eslint", "prettier"
+        "react",
+        "react-hooks",
+        "@typescript-eslint",
+        "prettier"
     ],
     "settings": {
         "import/resolver": {
@@ -30,7 +34,12 @@
         "react/react-in-jsx-scope": "off",
         "camelcase": "error",
         "spaced-comment": "error",
-        "quotes": ["error", "single"],
+        "quotes": [
+            "error",
+            "single"
+        ],
+        "no-console": "error",
+        "no-alert": "error",
         "no-duplicate-imports": "error"
     }
 }

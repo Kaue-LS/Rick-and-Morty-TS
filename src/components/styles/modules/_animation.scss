@@ -1,0 +1,37 @@
+@mixin Animation-fadeIn() {
+    animation: fade-in 300ms ease-out forwards;
+
+}
+
+@mixin Animation-fadeOut() {
+    animation: fade-out 300ms ease-out forwards;
+
+}
+
+@keyframes fade-in {
+    0% {
+        opacity: 0;
+        right: 0px;
+        top: 30px;
+    }
+
+    100% {
+        opacity: 1;
+        right: 0px;
+        top: 65px;
+    }
+}
+
+@keyframes fade-out {
+    0% {
+        opacity: 1;
+        right: 0px;
+        top: 65px;
+    }
+
+    100% {
+        opacity: 0;
+        right: 0px;
+        top: 30px;
+    }
+}

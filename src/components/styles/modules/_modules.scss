@@ -6,10 +6,11 @@
         1px 1px $color-main-green, -1px -1px $color-main-green, 1px -1px $color-main-green, -1px 1px $color-main-green;
 }
 
-@mixin Hover($background) {
+@mixin Hover($background, $color) {
     transition: 400ms;
 
     &:hover {
+        color: $color;
         font-weight: 600;
         background-color: $background;
     }

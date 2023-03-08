@@ -10,6 +10,8 @@
     "@types/node": "^16.7.13",
     "@types/react": "^18.0.27",
     "@types/react-dom": "^18.0.10",
+    "eslint-config-wesbos": "^3.2.3",
+    "library-name": "^1.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
@@ -18,9 +20,9 @@
   },
   "scripts": {
     "clean": "rm -rf dist",
-    "initiate": "concurrently \"yarn sass\" \"react-scripts start\"",
-    "start": "react-scripts start && concurrently \"yarn sass\"",
-    "sass": "concurrently \"sass --watch src/components/styles/scss/styles.scss:src/components/styles/css/styles.css --no-source-map\" \"sass --watch src/components/styles/scss/styles.scss:src/components/styles/css/styles.css --style compressed --no-source-map\"",
+    "initiate": "concurrently \"react-scripts start\" \"yarn sass\" ",
+    "start": "react-scripts start --no-open",
+    "sass": "nodemon --watch src/components/styles/scss/ --ext scss --delay 1 --exec \"sass src/components/styles/scss/styles.scss:src/components/styles/css/styles.css --style compressed --source-map\"",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
@@ -59,6 +61,7 @@
     "eslint-plugin-react": "^7.32.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "file-loader": "^6.2.0",
+    "nodemon": "^2.0.21",
     "prettier": "^2.8.3"
   }
 }
