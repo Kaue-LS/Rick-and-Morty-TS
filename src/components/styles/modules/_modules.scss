@@ -1,0 +1,17 @@
+@mixin RickText() {
+    color: $color-main-blue;
+    text-shadow: 0px 0px 10px $color-main-green;
+    font-family: getSchwitfy;
+    text-shadow: 2px 0 $color-main-green, -2px 0 $color-main-green, 0 2px $color-main-green, 0 -2px $color-main-green,
+        1px 1px $color-main-green, -1px -1px $color-main-green, 1px -1px $color-main-green, -1px 1px $color-main-green;
+}
+
+@mixin Hover($background, $color) {
+    transition: 400ms;
+
+    &:hover {
+        color: $color;
+        font-weight: 600;
+        background-color: $background;
+    }
+}
