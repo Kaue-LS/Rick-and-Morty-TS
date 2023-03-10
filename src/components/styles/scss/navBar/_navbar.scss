@@ -24,6 +24,10 @@
         justify-content: space-between;
         align-items: center;
 
+        @include mobile {
+            gap: 50px;
+        }
+
         &__logo {
             max-width: max-content;
             display: flex;
@@ -44,6 +48,10 @@
                     max-width: 60px;
                     max-height: 60px;
                 }
+
+                @include phone {
+                    display: none;
+                }
             }
 
             .heading_1 {
@@ -56,6 +64,10 @@
 
                 @include tablet {
                     font-size: $font-h3;
+                }
+
+                @include mobile {
+                    text-align: left;
                 }
             }
 
@@ -124,9 +136,14 @@
             .MenuIconMobile {
                 position: relative;
                 z-index: 999;
-                margin-right: 10px;
                 width: 30px;
                 height: auto;
+                fill: $color-main-green;
+
+                @include mobile {
+                    margin-right: 20px;
+
+                }
             }
         }
     }
@@ -135,28 +152,48 @@
     .side-bar {
         position: fixed;
         display: block;
+        margin-right: 20px;
 
         &--isOpen {
+            z-index: 999999;
             @include Animation-fadeIn;
 
         }
 
         &--isClosed {
+            z-index: 9;
             @include Animation-fadeOut;
         }
 
         .modalMenu {
-            padding: 10px 5px;
             background-color: #fff;
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            box-shadow: 0px 10px 10px $color-main-black-light;
 
             &__itemLink {
+                text-align: center;
                 text-decoration: none;
                 color: $color-main-black;
                 font-weight: 600;
                 font-size: $font-p1;
+                border-top: 1px solid $color-main-black;
+                border-bottom: 1px solid $color-main-black;
+                padding: 10px 15px;
+                transition: 200ms;
+
+                &:hover {
+                    color: #fff;
+                    background: $color-main-black;
+                }
+
+                &:first-child,
+                &:last-child {
+                    border-top: none;
+                    border-bottom: none;
+
+                }
+
             }
         }
     }

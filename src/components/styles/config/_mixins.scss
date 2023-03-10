@@ -1,5 +1,6 @@
-$tablet-screen: 1025px;
+$phone-screen: 375px;
 $mobile-screen: 640px;
+$tablet-screen: 1025px;
 $desktop-screen: 1444px;
 
 @mixin desktop {
@@ -16,6 +17,12 @@ $desktop-screen: 1444px;
 
 @mixin tablet {
     @media only screen and (max-width:$tablet-screen) {
+        @content
+    }
+}
+
+@mixin phone {
+    @media only screen and (max-width:$phone-screen) {
         @content
     }
 }
