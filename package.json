@@ -14,13 +14,14 @@
     "library-name": "^1.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-lazy-load-image-component": "^1.5.6",
+    "react-router-dom": "^6.9.0",
     "react-scripts": "5.0.1",
     "typescript": "*",
     "web-vitals": "^2.1.0"
   },
   "scripts": {
     "clean": "rm -rf dist",
-    "initiate": "concurrently \"react-scripts start\" \"yarn sass\" ",
     "start": "concurrently \"react-scripts start\" \"yarn sass\"",
     "sass": "nodemon --watch src/components/styles/scss/ --ext scss --delay 1 --exec \"sass src/components/styles/scss/styles.scss:src/components/styles/css/styles.css --style compressed --source-map\"",
     "build": "react-scripts build",
