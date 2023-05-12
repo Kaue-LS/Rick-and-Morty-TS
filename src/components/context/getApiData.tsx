@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect, useState } from 'react'
+import React, { ReactNode, useCallback, useEffect, useState } from 'react'
 import { dataContext } from './getContext'
 
 export default function DataProvider({ children }: { children: ReactNode }) {
@@ -6,31 +6,36 @@ export default function DataProvider({ children }: { children: ReactNode }) {
 
   const [character, setCharacter] = useState<never[]>([])
   const [pages, setPages] = useState(0)
-  const getApiData = async () => {
-    await fetch(`${baseUrl}/character`)
-      .then((response) => {
-        if (response.ok) {
-          return response.json() // Retorna uma Promise resolvida com os dados JSON
-        } else if (response.status === 404) {
-          throw new Error('Recurso não encontrado')
-        } else if (response.status === 500) {
-          throw new Error('Erro do servidor')
-        } else {
-          throw new Error('Erro desconhecido')
-        }
-      })
-      .then((data) => {
-        setCharacter(data.results)
-        setPages(data.info.pages)
-      })
-      .catch((error) => {
-        throw new Error(error)
-      })
-  }
+  const getPage = localStorage.getItem('page')?.toString()
+  const [getNewData, setGetNewData] = useState(false)
+  const getApiData = useCallback(() => {
+    if (!getNewData) {
+      fetch(`${baseUrl}/character${getPage ? `/?page=${getPage}` : ''}`)
+        .then((response) => {
+          if (response.ok) {
+            return response.json() // Retorna uma Promise resolvida com os dados JSON
+          } else if (response.status === 404) {
+            throw new Error('Recurso não encontrado')
+          } else if (response.status === 500) {
+            throw new Error('Erro do servidor')
+          } else {
+            throw new Error('Erro desconhecido')
+          }
+        })
+        .then((data) => {
+          setCharacter(data.results)
+          setPages(data.info.pages)
+          setGetNewData(!getNewData)
+        })
+        .catch((error) => {
+          throw new Error(error)
+        })
+    }
+  }, [getPage, getNewData])
 
   useEffect(() => {
     getApiData()
-  }, [])
+  }, [getApiData])
 
   return (
     <>
@@ -39,6 +44,7 @@ export default function DataProvider({ children }: { children: ReactNode }) {
           value={{
             character,
             pages,
+            setGetNewData,
           }}
         >
           {children}
