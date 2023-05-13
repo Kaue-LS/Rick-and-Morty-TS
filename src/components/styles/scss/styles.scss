@@ -1,16 +1,18 @@
 // Configs
-@import "../modules/modules";
-@import "../modules/animation";
 @import "../config/mixins";
 @import '../config/fontSize';
 @import '../config/colors';
 @import '../config/font.css';
-
+@import "../modules/modules";
+@import "../modules/animation";
+@import '../modules/status';
 // Components
 @import './navBar/navbar';
+@import './cardList/cardList';
 
 // Pages
 @import './home/home';
+
 
 * {
     margin: 0;

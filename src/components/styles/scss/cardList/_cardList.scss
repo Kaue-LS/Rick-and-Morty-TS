@@ -1,0 +1,39 @@
+.e-cardList {
+
+    &__container {
+        padding: 20px 60px;
+        display: inline-grid;
+        grid-template-columns: auto auto auto;
+        gap: 15px;
+
+        &__card {
+            background-color: #353535;
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+            justify-content: space-between;
+            max-width: 400px;
+            padding: 20px;
+
+            &__info {
+                display: flex;
+                flex: 1;
+                flex-direction: column;
+
+                &__label {
+                    display: flex;
+
+                }
+
+                &__status {
+                    width: 20px;
+                    height: 20px;
+                    border-radius: 100%;
+                    margin: 0 0 0 auto;
+                    overflow: hidden;
+                    border: 3px solid #353535;
+                }
+            }
+        }
+    }
+}
