@@ -14,7 +14,7 @@ export default function CardList() {
           return (
             <div className='e-cardList__container__card' key={item.id}>
               <div className='e-cardList__container__card__imageContainer'>
-                <img alt={item.name} width={200} height={200} loading={'lazy'} src={item.image} />
+                <img alt={item.name} loading={'lazy'} src={item.image} />
               </div>
               <div className='e-cardList__container__card__info'>
                 <div className={'e-cardList__container__card__info__status'}>
@@ -23,16 +23,22 @@ export default function CardList() {
                   ></span>
                 </div>
                 <div className='e-cardList__container__card__info__label'>
-                  <label>Name:</label>
-                  <span>{item.name}</span>
+                  <label>
+                    Name:
+                    <span>{item.name}</span>
+                  </label>
                 </div>
                 <div className='e-cardList__container__card__info__label'>
-                  <label>Gender:</label>
-                  <span>{item.gender}</span>
+                  <label>
+                    Gender:
+                    <span>{item.gender}</span>
+                  </label>
                 </div>
                 <div className='e-cardList__container__card__info__label'>
-                  <label>Specie:</label>
-                  <span>{item.species}</span>
+                  <label>
+                    Specie:
+                    <span>{item.species}</span>
+                  </label>
                 </div>
               </div>
             </div>

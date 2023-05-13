@@ -48,7 +48,7 @@ export default function PaginationDots() {
 
   return (
     pageDots && (
-      <div>
+      <section className='e-paginationDots'>
         {/* {pageSelect !== 1 && (
           <div
             onClick={() => {
@@ -58,38 +58,52 @@ export default function PaginationDots() {
             <span>{'<'}</span>
           </div>
         )} */}
-        {pageDots.map((item, index) => {
-          return (
-            <div key={index}>
-              <input
-                onClick={() => {
-                  if (typeof item === 'number' && item !== pageSelect) {
-                    setPageSelect(item)
-                    localStorage.setItem('page', item.toString())
-                    if (useDataContext?.setGetNewData) {
-                      useDataContext.setGetNewData(false)
+        <div className={'e-paginationDots__container'}>
+          {pageDots.map((item, index) => {
+            return (
+              <div
+                className={classNames(
+                  item === '...' ? 'dot--string' : '',
+                  'e-paginationDots__container__dots',
+                )}
+                key={index}
+              >
+                <input
+                  onClick={() => {
+                    if (typeof item === 'number' && item !== pageSelect) {
+                      setPageSelect(item)
+                      localStorage.setItem('page', item.toString())
+                      if (useDataContext?.setGetNewData) {
+                        useDataContext.setGetNewData(false)
+                      }
                     }
-                  }
-                }}
-                checked={item === pageSelect}
-                value={item}
-                disabled={item === '...'}
-                readOnly={item === '...'}
-                type={'radio'}
-                name={'PageDots'}
-                className={classNames('pageDot', item === pageSelect ? '--selected' : '--disabled')}
-              />
+                  }}
+                  checked={item === pageSelect}
+                  value={item}
+                  disabled={item === '...'}
+                  readOnly={item === '...'}
+                  type={'radio'}
+                  name={'PageDots'}
+                  placeholder=''
+                  title='number-dots'
+                  className={classNames(
+                    'e-paginationDots__container__dots__button',
+                    `pageDot${item === pageSelect ? '--selected' : '--disabled'}`,
+                    item === '...' ? 'pageDot--string' : '',
+                  )}
+                />
 
-              <span>{item}</span>
-            </div>
-          )
-        })}
-        {/* {pageSelect < pages.length && (
+                <span className='e-paginationDots__container__dots__number'>{item}</span>
+              </div>
+            )
+          })}
+          {/* {pageSelect < pages.length && (
           <div onClick={() => setPageSelect(pageSelect + 1)}>
             <span>{'>'}</span>
           </div>
         )} */}
-      </div>
+        </div>
+      </section>
     )
   )
 }
