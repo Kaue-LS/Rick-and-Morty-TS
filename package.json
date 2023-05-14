@@ -25,7 +25,7 @@
     "clean": "rm -rf dist",
     "start": "concurrently \"react-scripts start\" \"yarn sass\"",
     "sass": "nodemon --watch src/components/styles/scss/ --ext scss --delay 1 --exec \"sass src/components/styles/scss/styles.scss:src/components/styles/css/styles.css --style compressed --source-map\"",
-    "build": "react-scripts build",
+    "build": "concurrently \"yarn sass\" \"react-scripts build\"",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint src/**/*.{js,jsx,ts,tsx,json}",
