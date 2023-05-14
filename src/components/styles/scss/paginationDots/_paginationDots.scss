@@ -9,6 +9,7 @@
         display: flex;
         justify-content: center;
         gap: 10px;
+        flex-wrap: wrap;
 
         &__dots {
             border: 1px solid #fff;
@@ -26,6 +27,12 @@
             overflow: hidden;
             border-radius: 10px;
             transition: 400ms;
+
+            &.pageDot--selected {
+                background: #fff;
+                color: $color-main-black;
+                border: 1px solid $color-main-black;
+            }
 
             &.dot--string {
                 border: none;
@@ -72,7 +79,11 @@
                 &.pageDot--string {
                     cursor: initial;
                 }
+
+
             }
+
+
 
             &__number {
                 text-align: center;

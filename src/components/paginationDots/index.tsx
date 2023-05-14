@@ -65,6 +65,7 @@ export default function PaginationDots() {
                 className={classNames(
                   item === '...' ? 'dot--string' : '',
                   'e-paginationDots__container__dots',
+                  `pageDot${item === pageSelect ? '--selected' : ''}`,
                 )}
                 key={index}
               >
