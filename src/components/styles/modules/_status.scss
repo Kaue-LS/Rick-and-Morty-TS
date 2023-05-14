@@ -1,0 +1,16 @@
+$status: (
+    "Alive":$color-status-alive,
+    "Dead":$color-status-dead,
+    "unknown":$color-status-unknown,
+);
+
+@each $name,
+$color in $status {
+    .e-cardList__container__card__info__status__#{$name} {
+        background: $color;
+        width: 100%;
+        box-shadow: -17px 0px 25px inset #353535, -16px 0px 25px inset #353535;
+        padding: 20px;
+        height: 100%;
+    }
+}

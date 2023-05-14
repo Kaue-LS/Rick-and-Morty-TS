@@ -1,7 +1,23 @@
-@import "../modules/modules";
-@import "../modules/animation";
+// Configs
 @import "../config/mixins";
 @import '../config/fontSize';
 @import '../config/colors';
 @import '../config/font.css';
+@import "../modules/modules";
+@import "../modules/animation";
+@import '../modules/status';
+// Components
 @import './navBar/navbar';
+@import './cardList/cardList';
+@import '../scss/paginationDots/paginationDots';
+// Pages
+@import './home/home';
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Kanit', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
+        'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+}

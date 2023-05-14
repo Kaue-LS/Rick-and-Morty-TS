@@ -1,0 +1,13 @@
+.e-home {
+    padding: 20px 0 60px;
+    background: $color-main-background;
+
+    &__title {
+        text-align: center;
+        padding-top: 40px;
+        line-height: 40px;
+        font-weight: 700;
+        font-size: $font-h1;
+        color: $color-main-black;
+    }
+}

@@ -15,7 +15,7 @@ export const NavBarMobile = () => {
       <nav className='e-header__nav-container'>
         <div className='e-header__nav-container__logo'>
           <img alt='Rick and Morty API' src={Logo} />
-          <h1 className='heading_1'>Rick and Morty</h1>
+          <h2 className='heading_2'>Rick and Morty</h2>
         </div>
         <div className='e-header__nav-container__menu'>
           <MobileMenuIcon onClick={toggleSideBar} className={'MenuIconMobile'} />

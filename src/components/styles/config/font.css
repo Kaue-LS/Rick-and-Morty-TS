@@ -1,4 +1,9 @@
 @font-face {
-    font-family: "getSchwitfy";
-    src: url(../../../assets/fonts/get_schwifty.ttf);
+  font-family: 'getSchwitfy';
+  src: url(../../../assets/fonts/get_schwifty.ttf);
+}
+@font-face {
+  font-family: 'Kanit';
+  src: url('https://fonts.googleapis.com/css2?family=Kanit:wght@100;300;400;500;600;700;800&display=swap');
+  font-weight: 100;
 }
