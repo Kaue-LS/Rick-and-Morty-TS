@@ -25,7 +25,7 @@
     "clean": "rm -rf dist",
     "start": "concurrently \"react-scripts start\" \"yarn sass\"",
     "sass": "nodemon --watch src/components/styles/scss/ --ext scss --delay 1 --exec \"sass src/components/styles/scss/styles.scss:src/components/styles/css/styles.css --style compressed --source-map\"",
-    "build": "concurrently \"yarn sass\" \"react-scripts build\"",
+    "build": "node-sass src/components/styles/scss/styles.scss src/components/styles/css/styles.css && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint src/**/*.{js,jsx,ts,tsx,json}",
@@ -64,6 +64,7 @@
     "eslint-plugin-react": "^7.32.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "file-loader": "^6.2.0",
+    "node-sass": "^8.0.0",
     "nodemon": "^2.0.21",
     "prettier": "^2.8.3"
   }
