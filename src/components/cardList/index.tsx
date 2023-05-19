@@ -5,8 +5,6 @@ export default function CardList() {
   const { useDataContext } = UseContext()
   const { character } = useDataContext
 
-  // eslint-disable-next-line
-  console.log({ character })
   return (
     <section className='e-cardList'>
       <div className='e-cardList__container'>

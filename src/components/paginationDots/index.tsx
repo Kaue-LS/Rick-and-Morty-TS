@@ -46,6 +46,24 @@ export default function PaginationDots() {
     addDots()
   }, [addDots])
 
+  const handlePageDotClick = useCallback(
+    (item: number | string) => {
+      if (typeof item === 'number' && item !== pageSelect) {
+        setPageSelect(item)
+        localStorage.setItem('page', item.toString())
+        if (useDataContext?.setGetNewData) {
+          useDataContext.setGetNewData(false)
+          // eslint-disable-next-line
+          console.log('Executou')
+          window.scroll({
+            top: 0,
+            behavior: 'smooth',
+          })
+        }
+      }
+    },
+    [pageSelect, useDataContext],
+  )
   return (
     pageDots && (
       <section className='e-paginationDots'>
@@ -70,15 +88,7 @@ export default function PaginationDots() {
                 key={index}
               >
                 <input
-                  onClick={() => {
-                    if (typeof item === 'number' && item !== pageSelect) {
-                      setPageSelect(item)
-                      localStorage.setItem('page', item.toString())
-                      if (useDataContext?.setGetNewData) {
-                        useDataContext.setGetNewData(false)
-                      }
-                    }
-                  }}
+                  onClick={() => handlePageDotClick(item)}
                   checked={item === pageSelect}
                   value={item}
                   disabled={item === '...'}

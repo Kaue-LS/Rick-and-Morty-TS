@@ -9,5 +9,10 @@
         font-weight: 700;
         font-size: $font-h1;
         color: $color-main-black;
+
+        @include mobile {
+            padding-top: 0px;
+            padding-inline: 20px;
+        }
     }
 }
