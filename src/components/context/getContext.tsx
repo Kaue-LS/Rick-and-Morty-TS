@@ -13,6 +13,9 @@ interface contextProps {
   character: Character[]
   pages: number
   setGetNewData?: React.Dispatch<React.SetStateAction<boolean>>
+  text?: string
+  setText?: React.Dispatch<React.SetStateAction<string>>
+  setStartSearch?: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export const dataContext = createContext<contextProps>({
@@ -25,3 +28,5 @@ export function UseContext() {
   if (!useDataContext) throw new Error('useClient  deve ser usado dentro do Open Provider')
   return { useDataContext }
 }
+
+export type { Character, contextProps }

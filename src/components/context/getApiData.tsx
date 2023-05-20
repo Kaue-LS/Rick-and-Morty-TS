@@ -1,13 +1,16 @@
 import React, { ReactNode, useCallback, useEffect, useState } from 'react'
-import { dataContext } from './getContext'
-
+import { Character, dataContext } from './getContext'
 export default function DataProvider({ children }: { children: ReactNode }) {
   const baseUrl = 'https://rickandmortyapi.com/api'
-
-  const [character, setCharacter] = useState<never[]>([])
-  const [pages, setPages] = useState(0)
   const getPage = localStorage.getItem('page')?.toString()
+
+  const [character, setCharacter] = useState<Character[]>([])
+  const [pages, setPages] = useState(0)
+  const [filteredPages, setFilteredPages] = useState(0)
   const [getNewData, setGetNewData] = useState(false)
+  const [text, setText] = useState('Rick')
+  const [start, setStartSearch] = useState(true)
+
   const getApiData = useCallback(() => {
     if (!getNewData) {
       fetch(`${baseUrl}/character${getPage ? `/?page=${getPage}` : ''}`)
@@ -33,9 +36,57 @@ export default function DataProvider({ children }: { children: ReactNode }) {
     }
   }, [getPage, getNewData])
 
+  const getSearchedCharacther = useCallback(() => {
+    const getAllCharacter: Character[] = []
+    if (start) {
+      const fetchPromises = []
+      for (let i = 1; i < pages + 1; i++) {
+        const fetchPromise = fetch(`${baseUrl}/character${`/?page=${i}`}`)
+          .then((response) => {
+            if (response.ok) {
+              return response.json()
+            } else if (response.status === 404) {
+              throw new Error('Resource not found')
+            } else if (response.status === 500) {
+              throw new Error('Server error')
+            } else {
+              throw new Error('Unknown error')
+            }
+          })
+          .then((data) => {
+            getAllCharacter.push(...data.results) // Push individual characters into the array
+          })
+
+        fetchPromises.push(fetchPromise)
+      }
+
+      Promise.all(fetchPromises)
+        .then(() => {
+          // At this point, all fetch requests have completed
+
+          const filteredCharacter = getAllCharacter.filter((item) => {
+            // eslint-disable-next-line
+            console.log('item', item.name.toLowerCase())
+            // eslint-disable-next-line
+            console.log('text', text)
+            return item?.name.toLowerCase().includes(text.toLowerCase())
+          })
+          // eslint-disable-next-line
+          console.log(filteredCharacter)
+          setCharacter(filteredCharacter)
+        })
+        .catch((error) => {
+          Error('Error occurred during fetch requests:', error)
+        })
+    }
+  }, [start, pages, text])
+
   useEffect(() => {
     getApiData()
   }, [getApiData])
+  useEffect(() => {
+    getSearchedCharacther()
+  }, [getSearchedCharacther])
 
   return (
     <>
@@ -45,6 +96,9 @@ export default function DataProvider({ children }: { children: ReactNode }) {
             character,
             pages,
             setGetNewData,
+            text,
+            setText,
+            setStartSearch,
           }}
         >
           {children}
