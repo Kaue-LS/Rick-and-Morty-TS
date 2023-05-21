@@ -15,7 +15,12 @@ interface contextProps {
   setGetNewData?: React.Dispatch<React.SetStateAction<boolean>>
   text?: string
   setText?: React.Dispatch<React.SetStateAction<string>>
+  startSearch?: boolean
   setStartSearch?: React.Dispatch<React.SetStateAction<boolean>>
+  filteredPages?: number
+  setFilteredPages?: React.Dispatch<React.SetStateAction<number>>
+  selectFiltered?: number
+  setSelectFiltered?: React.Dispatch<React.SetStateAction<number>>
 }
 
 export const dataContext = createContext<contextProps>({

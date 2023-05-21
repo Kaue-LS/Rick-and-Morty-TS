@@ -10,7 +10,7 @@ export default function SearchBar() {
         type={'text'}
         onChange={(e) => (setText ? setText(e?.target?.value) : '')}
         placeholder='Search Character'
-        value={'Rick'}
+        value={text}
       />
     </section>
   )

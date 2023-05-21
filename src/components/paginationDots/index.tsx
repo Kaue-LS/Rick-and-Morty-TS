@@ -31,11 +31,22 @@ export default function PaginationDots() {
   }, [pageSelect, pages])
 
   const makePages = useCallback(() => {
-    const newPages = []
-    for (let i = 1; i <= useDataContext.pages; i++) {
-      newPages.push(i)
+    if (useDataContext.pages) {
+      const newPages = []
+
+      for (let i = 1; i <= useDataContext.pages; i++) {
+        newPages.push(i)
+      }
+      setPages(newPages)
     }
-    setPages(newPages)
+    if (useDataContext.filteredPages) {
+      const newPages = []
+
+      for (let i = 1; i <= useDataContext.filteredPages; i++) {
+        newPages.push(i)
+      }
+      setPages(newPages)
+    }
   }, [useDataContext])
 
   useEffect(() => {
@@ -53,8 +64,6 @@ export default function PaginationDots() {
         localStorage.setItem('page', item.toString())
         if (useDataContext?.setGetNewData) {
           useDataContext.setGetNewData(false)
-          // eslint-disable-next-line
-          console.log('Executou')
           window.scroll({
             top: 0,
             behavior: 'smooth',
@@ -64,18 +73,27 @@ export default function PaginationDots() {
     },
     [pageSelect, useDataContext],
   )
+  const handlePageDotFilteredClick = useCallback(
+    (item: number | string) => {
+      if (typeof item === 'number' && item !== useDataContext.selectFiltered) {
+        const { setSelectFiltered } = useDataContext
+        if (setSelectFiltered) {
+          setSelectFiltered(item)
+          localStorage.setItem('page', item.toString())
+          window.scroll({
+            top: 0,
+            behavior: 'smooth',
+          })
+        }
+      }
+    },
+    [useDataContext],
+  )
+
+  // eslint-disable-next-line
   return (
-    pageDots && (
-      <section className='e-paginationDots'>
-        {/* {pageSelect !== 1 && (
-          <div
-            onClick={() => {
-              setPageSelect(pageSelect - 1)
-            }}
-          >
-            <span>{'<'}</span>
-          </div>
-        )} */}
+    <section className='e-paginationDots'>
+      {!useDataContext.filteredPages && pageDots && (
         <div className={'e-paginationDots__container'}>
           {pageDots.map((item, index) => {
             return (
@@ -108,13 +126,45 @@ export default function PaginationDots() {
               </div>
             )
           })}
-          {/* {pageSelect < pages.length && (
-          <div onClick={() => setPageSelect(pageSelect + 1)}>
-            <span>{'>'}</span>
-          </div>
-        )} */}
         </div>
-      </section>
-    )
+      )}
+      {pageDots && useDataContext.filteredPages && (
+        <div className={'e-paginationDots__container'}>
+          {pages.map((item, index) => {
+            return (
+              <div
+                className={classNames(
+                  item === '...' ? 'dot--string' : '',
+                  'e-paginationDots__container__dots',
+                  `pageDot${item === useDataContext.selectFiltered ? '--selected' : ''}`,
+                )}
+                key={index}
+              >
+                <input
+                  onClick={() => handlePageDotFilteredClick(item)}
+                  checked={item === useDataContext.selectFiltered}
+                  value={item}
+                  disabled={item === '...'}
+                  readOnly={item === '...'}
+                  type={'radio'}
+                  name={'PageDots'}
+                  placeholder=''
+                  title='number-dots'
+                  className={classNames(
+                    'e-paginationDots__container__dots__button',
+                    `pageDot${
+                      item === useDataContext.selectFiltered ? '--selected' : '--disabled'
+                    }`,
+                    item === '...' ? 'pageDot--string' : '',
+                  )}
+                />
+
+                <span className='e-paginationDots__container__dots__number'>{item}</span>
+              </div>
+            )
+          })}
+        </div>
+      )}
+    </section>
   )
 }
