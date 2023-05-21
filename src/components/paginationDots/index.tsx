@@ -29,6 +29,32 @@ export default function PaginationDots() {
     setPageDots(numberOfPages)
   }, [pageSelect, pages])
 
+  const addFilteredDots = useCallback(() => {
+    let numberOfPages: (number | string)[] = [...pages]
+    if (useDataContext.selectFiltered) {
+      if (useDataContext.selectFiltered >= 1 && useDataContext.selectFiltered <= 3) {
+        numberOfPages = [1, 2, 3, 4, '...', pages.length]
+      } else if (useDataContext.selectFiltered === 4) {
+        // const sliced = pages.slice(0, 1)
+        const sliced2 = pages.slice(1, 5)
+        numberOfPages = [...sliced2, '...', pages.length]
+      } else if (
+        useDataContext.selectFiltered >= 5 &&
+        useDataContext.selectFiltered <= pages.length - 3
+      ) {
+        const slicedStart = pages.slice(0, 1)
+        const slicedEnd = pages.slice(
+          useDataContext.selectFiltered - 2,
+          useDataContext.selectFiltered + 1,
+        )
+        numberOfPages = [...slicedStart, '...', ...slicedEnd, '...', pages.length]
+      } else if (useDataContext.selectFiltered >= pages.length - 2) {
+        const sliced = pages.slice(pages.length - 4, pages.length)
+        numberOfPages = [1, '...', ...sliced]
+      }
+      setPageDots(numberOfPages)
+    }
+  }, [pages, useDataContext.selectFiltered])
   const makePages = useCallback(() => {
     if (useDataContext.pages) {
       const newPages = []
@@ -54,7 +80,8 @@ export default function PaginationDots() {
 
   useEffect(() => {
     addDots()
-  }, [addDots])
+    addFilteredDots()
+  }, [addDots, addFilteredDots])
 
   const handlePageDotClick = useCallback(
     (item: number | string) => {
@@ -79,7 +106,7 @@ export default function PaginationDots() {
         if (setSelectFiltered && setStartSearch) {
           setSelectFiltered(item)
           setStartSearch(true)
-          localStorage.setItem('page', item.toString())
+          // localStorage.setItem('pageFiltered', item.toString())
           window.scroll({
             top: 0,
             behavior: 'smooth',
@@ -90,6 +117,8 @@ export default function PaginationDots() {
     [useDataContext],
   )
 
+  // eslint-disable-next-line
+  console.log(pageDots, useDataContext.selectFiltered, pages)
   return (
     <section className='e-paginationDots'>
       {!useDataContext.filteredPages && pageDots && (
