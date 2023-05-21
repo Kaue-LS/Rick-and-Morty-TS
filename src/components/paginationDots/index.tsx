@@ -26,7 +26,6 @@ export default function PaginationDots() {
       const sliced = pages.slice(pages.length - 4, pages.length)
       numberOfPages = [1, '...', ...sliced]
     }
-
     setPageDots(numberOfPages)
   }, [pageSelect, pages])
 
@@ -76,9 +75,10 @@ export default function PaginationDots() {
   const handlePageDotFilteredClick = useCallback(
     (item: number | string) => {
       if (typeof item === 'number' && item !== useDataContext.selectFiltered) {
-        const { setSelectFiltered } = useDataContext
-        if (setSelectFiltered) {
+        const { setSelectFiltered, setStartSearch } = useDataContext
+        if (setSelectFiltered && setStartSearch) {
           setSelectFiltered(item)
+          setStartSearch(true)
           localStorage.setItem('page', item.toString())
           window.scroll({
             top: 0,
@@ -90,7 +90,6 @@ export default function PaginationDots() {
     [useDataContext],
   )
 
-  // eslint-disable-next-line
   return (
     <section className='e-paginationDots'>
       {!useDataContext.filteredPages && pageDots && (
@@ -130,7 +129,7 @@ export default function PaginationDots() {
       )}
       {pageDots && useDataContext.filteredPages && (
         <div className={'e-paginationDots__container'}>
-          {pages.map((item, index) => {
+          {pageDots.map((item, index) => {
             return (
               <div
                 className={classNames(

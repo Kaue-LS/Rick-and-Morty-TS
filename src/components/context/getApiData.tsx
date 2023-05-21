@@ -9,8 +9,8 @@ export default function DataProvider({ children }: { children: ReactNode }) {
   const [filteredPages, setFilteredPages] = useState<number>(0)
   const [selectFiltered, setSelectFiltered] = useState<number>(1)
   const [getNewData, setGetNewData] = useState(false)
-  const [text, setText] = useState('Rick')
-  const [start, setStartSearch] = useState(true)
+  const [text, setText] = useState('')
+  const [start, setStartSearch] = useState(false)
 
   const getApiData = useCallback(() => {
     if (!getNewData) {
@@ -78,10 +78,10 @@ export default function DataProvider({ children }: { children: ReactNode }) {
 
           // Get the items for the current page
           const currentPageItems = filteredCharacter.slice(startIndex, endIndex)
-          // eslint-disable-next-line no-console
-          console.log({ totalPages }, { startIndex })
+
           setCharacter(currentPageItems)
           setFilteredPages(totalPages)
+          setStartSearch(false)
         })
         .catch((error) => {
           Error('Error occurred during fetch requests:', error)
