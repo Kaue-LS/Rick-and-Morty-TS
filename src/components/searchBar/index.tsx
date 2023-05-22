@@ -1,9 +1,9 @@
 import React from 'react'
-import { UseContext } from '../context/getContext'
+import { UseCharacterContext } from '../context/getContext'
 export default function SearchBar() {
-  const { useDataContext } = UseContext()
-  const { setStartSearch } = useDataContext
-  const { text, setText } = useDataContext
+  const { useCharacterContext } = UseCharacterContext()
+  const { setGetFilteredData } = useCharacterContext
+  const { text, setText } = useCharacterContext
 
   return (
     <section>
@@ -14,7 +14,9 @@ export default function SearchBar() {
           placeholder='Search Character'
           value={text}
         />
-        <button onClick={() => (setStartSearch ? setStartSearch(true) : null)}>Buscar</button>
+        <button onClick={() => (setGetFilteredData ? setGetFilteredData(true) : null)}>
+          Buscar
+        </button>
       </form>
     </section>
   )

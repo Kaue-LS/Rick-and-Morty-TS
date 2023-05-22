@@ -1,6 +1,14 @@
 import { useContext, createContext } from 'react'
 
-interface Character {
+interface FilteredProps {
+  totalPages: number
+  baseUrl: string
+  getFilteredData: boolean
+  setGetFilteredData: React.Dispatch<React.SetStateAction<boolean>>
+  selectFiltered: number
+}
+
+interface CharacterProps {
   id: number
   name: string
   status: string
@@ -10,28 +18,33 @@ interface Character {
   image: string
 }
 interface contextProps {
-  character: Character[]
-  pages: number
+  characterData: {
+    character: CharacterProps[]
+    totalPages: number
+  }
   setGetNewData?: React.Dispatch<React.SetStateAction<boolean>>
   text?: string
   setText?: React.Dispatch<React.SetStateAction<string>>
-  startSearch?: boolean
-  setStartSearch?: React.Dispatch<React.SetStateAction<boolean>>
+  getFilteredData?: boolean
+  setGetFilteredData?: React.Dispatch<React.SetStateAction<boolean>>
   filteredPages?: number
-  setFilteredPages?: React.Dispatch<React.SetStateAction<number>>
+  filteredCharacter?: CharacterProps[]
   selectFiltered?: number
   setSelectFiltered?: React.Dispatch<React.SetStateAction<number>>
 }
 
-export const dataContext = createContext<contextProps>({
-  character: [],
-  pages: 0,
+export const characterContext = createContext<contextProps>({
+  characterData: {
+    character: [],
+    totalPages: 0,
+  },
 })
 
-export function UseContext() {
-  const useDataContext = useContext(dataContext)
-  if (!useDataContext) throw new Error('useClient  deve ser usado dentro do Open Provider')
-  return { useDataContext }
+export function UseCharacterContext() {
+  const useCharacterContext = useContext(characterContext)
+  if (!useCharacterContext)
+    throw new Error('useCharacterContext  deve ser usado dentro do Open Provider')
+  return { useCharacterContext }
 }
 
-export type { Character, contextProps }
+export type { CharacterProps, contextProps, FilteredProps }
