@@ -11,48 +11,52 @@ export default function PaginationDots() {
   const [pageDots, setPageDots] = useState<(number | string)[]>([])
 
   const addDots = useCallback(() => {
-    let numberOfPages: (number | string)[] = [...pages]
-    if (pageSelect >= 1 && pageSelect <= 3) {
-      numberOfPages = [1, 2, 3, 4, '...', pages.length]
-    } else if (pageSelect === 4) {
-      // const sliced = pages.slice(0, 1)
-      const sliced2 = pages.slice(1, 5)
-      numberOfPages = [...sliced2, '...', pages.length]
-    } else if (pageSelect >= 5 && pageSelect <= pages.length - 3) {
-      const slicedStart = pages.slice(0, 1)
-      const slicedEnd = pages.slice(pageSelect - 2, pageSelect + 1)
-      numberOfPages = [...slicedStart, '...', ...slicedEnd, '...', pages.length]
-    } else if (pageSelect >= pages.length - 2) {
-      const sliced = pages.slice(pages.length - 4, pages.length)
-      numberOfPages = [1, '...', ...sliced]
-    }
-    setPageDots(numberOfPages)
-  }, [pageSelect, pages])
-
-  const addFilteredDots = useCallback(() => {
-    let numberOfPages: (number | string)[] = [...pages]
-    if (useCharacterContext.selectFiltered) {
-      if (useCharacterContext.selectFiltered >= 1 && useCharacterContext.selectFiltered <= 3) {
+    if (pages.length > 4) {
+      let numberOfPages: (number | string)[] = [...pages]
+      if (pageSelect >= 1 && pageSelect <= 3) {
         numberOfPages = [1, 2, 3, 4, '...', pages.length]
-      } else if (useCharacterContext.selectFiltered === 4) {
+      } else if (pageSelect === 4) {
         // const sliced = pages.slice(0, 1)
         const sliced2 = pages.slice(1, 5)
         numberOfPages = [...sliced2, '...', pages.length]
-      } else if (
-        useCharacterContext.selectFiltered >= 5 &&
-        useCharacterContext.selectFiltered <= pages.length - 3
-      ) {
+      } else if (pageSelect >= 5 && pageSelect <= pages.length - 3) {
         const slicedStart = pages.slice(0, 1)
-        const slicedEnd = pages.slice(
-          useCharacterContext.selectFiltered - 2,
-          useCharacterContext.selectFiltered + 1,
-        )
+        const slicedEnd = pages.slice(pageSelect - 2, pageSelect + 1)
         numberOfPages = [...slicedStart, '...', ...slicedEnd, '...', pages.length]
-      } else if (useCharacterContext.selectFiltered >= pages.length - 2) {
+      } else if (pageSelect >= pages.length - 2) {
         const sliced = pages.slice(pages.length - 4, pages.length)
         numberOfPages = [1, '...', ...sliced]
       }
       setPageDots(numberOfPages)
+    }
+  }, [pageSelect, pages])
+
+  const addFilteredDots = useCallback(() => {
+    if (pages.length > 4) {
+      let numberOfPages: (number | string)[] = [...pages]
+      if (useCharacterContext.selectFiltered) {
+        if (useCharacterContext.selectFiltered >= 1 && useCharacterContext.selectFiltered <= 3) {
+          numberOfPages = [1, 2, 3, 4, '...', pages.length]
+        } else if (useCharacterContext.selectFiltered === 4) {
+          // const sliced = pages.slice(0, 1)
+          const sliced2 = pages.slice(1, 5)
+          numberOfPages = [...sliced2, '...', pages.length]
+        } else if (
+          useCharacterContext.selectFiltered >= 5 &&
+          useCharacterContext.selectFiltered <= pages.length - 3
+        ) {
+          const slicedStart = pages.slice(0, 1)
+          const slicedEnd = pages.slice(
+            useCharacterContext.selectFiltered - 2,
+            useCharacterContext.selectFiltered + 1,
+          )
+          numberOfPages = [...slicedStart, '...', ...slicedEnd, '...', pages.length]
+        } else if (useCharacterContext.selectFiltered >= pages.length - 2) {
+          const sliced = pages.slice(pages.length - 4, pages.length)
+          numberOfPages = [1, '...', ...sliced]
+        }
+        setPageDots(numberOfPages)
+      }
     }
   }, [pages, useCharacterContext.selectFiltered])
   const makePages = useCallback(() => {
@@ -117,8 +121,6 @@ export default function PaginationDots() {
     [useCharacterContext],
   )
 
-  // eslint-disable-next-line
-  console.log(pageDots, useCharacterContext.selectFiltered, pages)
   return (
     <section className='e-paginationDots'>
       {!useCharacterContext.filteredPages && pageDots && (
@@ -156,43 +158,45 @@ export default function PaginationDots() {
           })}
         </div>
       )}
-      {pageDots && useCharacterContext.filteredPages && (
-        <div className={'e-paginationDots__container'}>
-          {pageDots.map((item, index) => {
-            return (
-              <div
-                className={classNames(
-                  item === '...' ? 'dot--string' : '',
-                  'e-paginationDots__container__dots',
-                  `pageDot${item === useCharacterContext.selectFiltered ? '--selected' : ''}`,
-                )}
-                key={index}
-              >
-                <input
-                  onClick={() => handlePageDotFilteredClick(item)}
-                  checked={item === useCharacterContext.selectFiltered}
-                  value={item}
-                  disabled={item === '...'}
-                  readOnly={item === '...'}
-                  type={'radio'}
-                  name={'PageDots'}
-                  placeholder=''
-                  title='number-dots'
+      {pageDots &&
+        useCharacterContext.filteredCharacter &&
+        useCharacterContext.filteredCharacter.length > 0 && (
+          <div className={'e-paginationDots__container'}>
+            {pageDots.map((item, index) => {
+              return (
+                <div
                   className={classNames(
-                    'e-paginationDots__container__dots__button',
-                    `pageDot${
-                      item === useCharacterContext.selectFiltered ? '--selected' : '--disabled'
-                    }`,
-                    item === '...' ? 'pageDot--string' : '',
+                    item === '...' ? 'dot--string' : '',
+                    'e-paginationDots__container__dots',
+                    `pageDot${item === useCharacterContext.selectFiltered ? '--selected' : ''}`,
                   )}
-                />
+                  key={index}
+                >
+                  <input
+                    onClick={() => handlePageDotFilteredClick(item)}
+                    checked={item === useCharacterContext.selectFiltered}
+                    value={item}
+                    disabled={item === '...'}
+                    readOnly={item === '...'}
+                    type={'radio'}
+                    name={'PageDots'}
+                    placeholder=''
+                    title='number-dots'
+                    className={classNames(
+                      'e-paginationDots__container__dots__button',
+                      `pageDot${
+                        item === useCharacterContext.selectFiltered ? '--selected' : '--disabled'
+                      }`,
+                      item === '...' ? 'pageDot--string' : '',
+                    )}
+                  />
 
-                <span className='e-paginationDots__container__dots__number'>{item}</span>
-              </div>
-            )
-          })}
-        </div>
-      )}
+                  <span className='e-paginationDots__container__dots__number'>{item}</span>
+                </div>
+              )
+            })}
+          </div>
+        )}
     </section>
   )
 }

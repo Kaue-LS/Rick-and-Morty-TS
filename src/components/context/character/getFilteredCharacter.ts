@@ -13,7 +13,10 @@ export default function GetFilteredCharacter({
   const [text, setText] = useState('')
   const getFilteredCharacther = useCallback(() => {
     const getAllCharacter: CharacterProps[] = []
-    if (getFilteredData) {
+
+    if (getFilteredData && text.length) {
+      // eslint-disable-next-line
+      console.log('GetFilteredCharacter')
       const fetchPromises = []
       for (let i = 1; i < totalPages + 1; i++) {
         const fetchPromise = fetch(`${baseUrl}/character${`/?page=${i}`}`)

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 
 export function SwitchDevice() {
-  const [test, setWindowSize] = useState<number>(getWindowSize())
+  const [windowSize, setWindowSize] = useState<number>(getWindowSize())
 
   useEffect(() => {
     function handleWindowResize() {
@@ -13,8 +13,8 @@ export function SwitchDevice() {
       window.removeEventListener('resize', handleWindowResize)
     }
   }, [])
-  const isMobile = test <= 640
-  const isTablet = test <= 1024
+  const isMobile = windowSize <= 640
+  const isTablet = windowSize <= 1024
 
   return {
     isMobile,

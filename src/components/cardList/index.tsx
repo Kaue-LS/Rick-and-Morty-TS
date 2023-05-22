@@ -9,7 +9,7 @@ export default function CardList() {
   return (
     <section className='e-cardList'>
       <div className='e-cardList__container'>
-        {!filteredCharacter ? (
+        {!filteredCharacter?.length ? (
           <>
             {character.map((item) => {
               return (

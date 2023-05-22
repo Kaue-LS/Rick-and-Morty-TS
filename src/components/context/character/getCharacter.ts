@@ -17,6 +17,9 @@ export default function GetCharacter({
   const [totalPages, setTotalPages] = useState<number>(0)
   const getApiData = useCallback(() => {
     if (!getNewData) {
+      // eslint-disable-next-line
+      console.log('GetCharacter')
+
       fetch(`${baseUrl}/character${getPage ? `/?page=${getPage}` : ''}`)
         .then((response) => {
           if (response.ok) {
