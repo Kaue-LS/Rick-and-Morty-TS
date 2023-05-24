@@ -6,24 +6,25 @@ interface GetCharacterProps {
   baseUrl: string
   getPage?: string
   setGetNewData: React.Dispatch<React.SetStateAction<boolean>>
+  filteredMode: boolean
 }
-export default function GetCharacter({
+
+function GetCharacter({
   getNewData,
   baseUrl,
   getPage,
   setGetNewData,
+  filteredMode,
 }: GetCharacterProps) {
   const [character, setCharacter] = useState<CharacterProps[]>()
   const [totalPages, setTotalPages] = useState<number>(0)
-  const getApiData = useCallback(() => {
-    if (!getNewData) {
-      // eslint-disable-next-line
-      console.log('GetCharacter')
 
+  const getApiData = useCallback(() => {
+    if (!getNewData && !filteredMode) {
       fetch(`${baseUrl}/character${getPage ? `/?page=${getPage}` : ''}`)
         .then((response) => {
           if (response.ok) {
-            return response.json() // Retorna uma Promise resolvida com os dados JSON
+            return response.json()
           } else if (response.status === 404) {
             throw new Error('Recurso não encontrado')
           } else if (response.status === 500) {
@@ -35,13 +36,13 @@ export default function GetCharacter({
         .then((data) => {
           setCharacter(data.results)
           setTotalPages(data.info.pages)
-          setGetNewData(!getNewData)
+          setGetNewData(true)
         })
         .catch((error) => {
-          throw new Error(error)
+          Error(error.message)
         })
     }
-  }, [getPage, baseUrl, getNewData, setGetNewData])
+  }, [getPage, baseUrl, getNewData, setGetNewData, filteredMode])
 
   useEffect(() => {
     getApiData()
@@ -52,3 +53,5 @@ export default function GetCharacter({
     totalPages,
   }
 }
+
+export default GetCharacter

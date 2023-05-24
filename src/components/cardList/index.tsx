@@ -4,12 +4,15 @@ import { UseCharacterContext } from '../context/getContext'
 export default function CardList() {
   const { useCharacterContext } = UseCharacterContext()
   const { character } = useCharacterContext.characterData
-  const { filteredCharacter } = useCharacterContext
+  const { filteredCharacterList, filteredMode } = useCharacterContext
+
+  // eslint-disable-next-line
+  console.log(filteredMode)
 
   return (
     <section className='e-cardList'>
       <div className='e-cardList__container'>
-        {!filteredCharacter?.length ? (
+        {!filteredMode ? (
           <>
             {character.map((item) => {
               return (
@@ -48,7 +51,7 @@ export default function CardList() {
           </>
         ) : (
           <>
-            {filteredCharacter.map((item) => {
+            {filteredCharacterList?.map((item) => {
               return (
                 <div className='e-cardList__container__card' key={item.id}>
                   <div className='e-cardList__container__card__imageContainer'>
