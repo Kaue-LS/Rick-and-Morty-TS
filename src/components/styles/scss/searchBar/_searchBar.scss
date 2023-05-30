@@ -1,0 +1,68 @@
+.e-searchBar {
+    margin: 40px 0 20px;
+    background: $color-main-black;
+    padding: 20px 60px;
+
+    @include mobile {
+        padding: 10px 20px;
+    }
+
+    &__form {
+        margin: auto;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        position: relative;
+
+        &__input {
+            min-width: 400px;
+            padding: 10px;
+            border-radius: 5px 0 0px 5px;
+            border: none;
+            font-size: $font-p1;
+            font-weight: 600;
+
+            &:focus {
+                outline: none;
+            }
+
+            @include mobile {
+                border-radius: 5px;
+
+                min-width: 100%;
+                max-width: 100%;
+            }
+        }
+
+        &__submit {
+            background-color: $color-main-background-dark;
+            border: 0px;
+            padding: 5px 10px;
+            border-radius: 0px 5px 5px 0;
+            cursor: pointer;
+            transition: 200ms;
+
+            &:hover {
+                filter: brightness(1.1);
+            }
+
+            &:focus {
+                outline: none;
+            }
+
+            @include mobile {
+                height: 100%;
+                width: 100%;
+                max-width: 80px;
+                max-height: 80px;
+                position: absolute;
+                right: 0;
+            }
+
+            .SearchIcon {
+                color: white;
+                fill: currentColor;
+            }
+        }
+    }
+}
