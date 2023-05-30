@@ -22,8 +22,6 @@ export default function GetFilteredCharacter({
         if (text.length > 0) {
           try {
             const getAllCharacter: CharacterProps[] = []
-            // eslint-disable-next-line
-            console.log('teste')
             const fetchPromises = []
             for (let i = 1; i < totalPages + 1; i++) {
               const fetchPromise = fetch(`${baseUrl}/character${`/?page=${i}`}`)
@@ -62,16 +60,12 @@ export default function GetFilteredCharacter({
             setFilteredPages(pages)
             setGetFilteredData(false)
             setFilteredMode(true)
-            // eslint-disable-next-line
-            console.log('executou aqui true')
           } catch (error) {
             Error('Error occurred during fetch requests:')
           }
         } else {
           setGetNewData(false)
           setGetFilteredData(false)
-          // eslint-disable-next-line
-          console.log('executou aqui false')
           setFilteredMode(false)
         }
       }

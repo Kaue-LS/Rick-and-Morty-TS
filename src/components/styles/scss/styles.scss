@@ -10,6 +10,7 @@
 @import './navBar/navbar';
 @import './cardList/cardList';
 @import '../scss/paginationDots/paginationDots';
+@import "../scss/searchBar/searchBar";
 // Pages
 @import './home/home';
 
@@ -20,9 +21,4 @@
     box-sizing: border-box;
     font-family: 'Kanit', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
         'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-}
-
-body {
-    width: 100vw;
-    height: 100vh;
 }

@@ -6,9 +6,6 @@ export default function CardList() {
   const { character } = useCharacterContext.characterData
   const { filteredCharacterList, filteredMode } = useCharacterContext
 
-  // eslint-disable-next-line
-  console.log(filteredMode)
-
   return (
     <section className='e-cardList'>
       <div className='e-cardList__container'>
