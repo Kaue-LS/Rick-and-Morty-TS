@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import type { CharacterProps } from '../getContext'
+import type { CharacterProps } from '../context.types'
 
 interface GetCharacterProps {
   getNewData: boolean

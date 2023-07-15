@@ -38,8 +38,6 @@ export default function DataProvider({ children }: { children: ReactNode }) {
     setFilteredMode,
     text,
   })
-  // eslint-disable-next-line
-  console.log(filteredMode, getNewData)
   return (
     <>
       {characterData && totalPages ? (

@@ -21,7 +21,7 @@
     "typescript": "*",
     "web-vitals": "^2.1.0"
   },
-  "scripts": {
+ "scripts": {
     "clean": "rm -rf dist",
     "initiate": "concurrently \"react-scripts start\" \"yarn sass\"",
     "start": "react-scripts start",

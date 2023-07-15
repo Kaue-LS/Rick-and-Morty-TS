@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import type { CharacterProps, FilteredProps } from '../getContext'
+import type { CharacterProps, FilteredProps } from '../context.types'
 
 export default function GetFilteredCharacter({
   totalPages,
