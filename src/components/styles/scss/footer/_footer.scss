@@ -4,6 +4,12 @@
     justify-content: space-between;
     padding: 40px 60px;
 
+    @include tablet {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+
     &__developed,
     &__info,
     &__original {
@@ -11,18 +17,33 @@
         display: flex;
         flex-direction: column;
 
+        @include tablet {
+            align-items: center;
+        }
+
         h3 {
             margin-bottom: 15px;
             font-size: $font-h2;
             font-weight: 700;
         }
+
+        a {
+            color: white;
+            text-decoration: none;
+            padding-bottom: 2px;
+            border-bottom: 1px solid white;
+        }
     }
 
-    &__developed,
-    &__info {
+    &__developed {
         div {
             display: flex;
             gap: 20px;
+            flex-wrap: wrap;
+
+            @include tablet {
+                justify-content: center;
+            }
 
             label {
                 display: flex;
@@ -44,6 +65,37 @@
                     flex: 1;
                     max-width: 60px;
                 }
+            }
+        }
+    }
+
+    &__info {
+
+        div,
+        label {
+            display: flex;
+        }
+
+        div {
+            gap: 20px;
+
+            @include tablet {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+        }
+
+        label {
+            gap: 5px;
+            align-items: center;
+
+            p {
+                font-size: $font-p1;
+            }
+
+            span {
+                font-size: $font-p1;
+                font-weight: 600;
             }
         }
     }
