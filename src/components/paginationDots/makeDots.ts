@@ -70,8 +70,6 @@ export function MakeFilteredDots(filteredPages: (number | string)[]) {
     addFilteredDots()
   }, [addFilteredDots])
 
-  // // eslint-disable-next-line
-  // console.log(filteredPages)
   return {
     filteredPageDots,
   }

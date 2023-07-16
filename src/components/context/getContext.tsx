@@ -4,7 +4,7 @@ import type { contextCharacterProps, infoContextProps } from './context.types'
 export const characterContext = createContext<contextCharacterProps>({
   characterData: {
     character: [],
-    totalPages: 0,
+    slicedPages: 0,
   },
   text: '',
 })

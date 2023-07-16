@@ -10,50 +10,54 @@ export default function DataProvider({ children }: { children: ReactNode }) {
   const [text, setText] = useState('')
 
   const [getNewData, setGetNewData] = useState(false)
-  const [selectFiltered, setSelectFiltered] = useState<number>(1)
-  const [getFilteredData, setGetFilteredData] = useState(false)
+  const [select, setSelect] = useState<number>(1)
+  // const [selectFiltered, setSelectFiltered] = useState<number>(1)
+  // const [getFilteredData, setGetFilteredData] = useState(false)
   const [filteredMode, setFilteredMode] = useState(false)
 
+  // --------------------------------------
   const getCharacter = GetCharacter({
     baseUrl,
     getPage,
     getNewData,
     setGetNewData,
     filteredMode,
+    select
   })
-  const { character, totalPages } = getCharacter
+  const { character, slicedPages } = getCharacter
 
   const characterData = {
     character: character ? character : [],
-    totalPages,
+    slicedPages,
   }
+  // -------------------------------------
+  // const { filteredCharacterList, filteredPages } = GetFilteredCharacter({
+  //   totalPages,
+  //   baseUrl,
+  //   selectFiltered,
+  //   getFilteredData,
+  //   setGetFilteredData,
+  //   setGetNewData,
+  //   setFilteredMode,
+  //   text,
+  // })
 
-  const { filteredCharacterList, filteredPages } = GetFilteredCharacter({
-    totalPages,
-    baseUrl,
-    selectFiltered,
-    getFilteredData,
-    setGetFilteredData,
-    setGetNewData,
-    setFilteredMode,
-    text,
-  })
   return (
     <>
-      {characterData && totalPages ? (
+      {characterData && slicedPages ? (
         <characterContext.Provider
           value={{
             characterData,
             getNewData,
             setGetNewData,
-            getFilteredData,
+            // getFilteredData,
             text,
             filteredMode,
-            setGetFilteredData,
-            selectFiltered,
-            setSelectFiltered,
-            filteredCharacterList,
-            filteredPages,
+            // setGetFilteredData,
+            // selectFiltered,
+            // setSelectFiltered,
+            // filteredCharacterList,
+            // filteredPages,
             setText,
           }}
         >

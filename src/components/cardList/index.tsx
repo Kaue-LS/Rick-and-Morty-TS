@@ -48,7 +48,7 @@ export default function CardList() {
           </>
         ) : (
           <>
-            {filteredCharacterList?.map((item) => {
+            {/* {filteredCharacterList?.map((item) => {
               return (
                 <div className='e-cardList__container__card' key={item.id}>
                   <div className='e-cardList__container__card__imageContainer'>
@@ -81,7 +81,7 @@ export default function CardList() {
                   </div>
                 </div>
               )
-            })}
+            })} */}
           </>
         )}
       </div>

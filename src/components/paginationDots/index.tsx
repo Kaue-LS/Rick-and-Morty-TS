@@ -3,7 +3,6 @@ import { UseCharacterContext } from '../context/getContext'
 import classNames from 'classnames'
 import MakePages from './makePages'
 import { MakeDots, MakeFilteredDots } from './makeDots'
-import FilteredDots from './filteredDots'
 
 export default function PaginationDots() {
   // get the current page
@@ -13,29 +12,29 @@ export default function PaginationDots() {
   const { useCharacterContext } = UseCharacterContext()
   // getPages Filtered
   const { pages } = MakePages()
+  // eslint-disable-next-line
+  console.log(pages)
   // Add selectedPage on useState
   const [pageSelect, setPageSelect] = useState<number>(numberPage ? numberPage : 1)
-  // makeDots
+  // // makeDots
   const { pageDots } = MakeDots(pages, pageSelect)
-  const { filteredPages } = MakePages()
-  const { filteredPageDots } = MakeFilteredDots(filteredPages)
-  const handlePageDotClick = useCallback(
-    (item: number | string) => {
-      if (typeof item === 'number' && item !== pageSelect) {
-        setPageSelect(item)
+  // const handlePageDotClick = useCallback(
+  //   (item: number | string) => {
+  //     if (typeof item === 'number' && item !== pageSelect) {
+  //       setPageSelect(item)
 
-        localStorage.setItem('page', item.toString())
-        if (useCharacterContext?.setGetNewData) {
-          useCharacterContext.setGetNewData(false)
-          window.scroll({
-            top: 0,
-            behavior: 'smooth',
-          })
-        }
-      }
-    },
-    [pageSelect, useCharacterContext],
-  )
+  //       localStorage.setItem('page', item.toString())
+  //       if (useCharacterContext?.setGetNewData) {
+  //         useCharacterContext.setGetNewData(false)
+  //         window.scroll({
+  //           top: 0,
+  //           behavior: 'smooth',
+  //         })
+  //       }
+  //     }
+  //   },
+  //   [pageSelect, useCharacterContext],
+  // )
 
   return (
     <>
@@ -53,7 +52,7 @@ export default function PaginationDots() {
                   key={index}
                 >
                   <input
-                    onClick={() => handlePageDotClick(item)}
+                    // onClick={() => handlePageDotClick(item)}
                     checked={item === pageSelect}
                     value={item}
                     disabled={item === '...'}
@@ -75,7 +74,6 @@ export default function PaginationDots() {
           </div>
         </section>
       )}
-      {useCharacterContext.filteredMode && filteredPageDots.length > 0 ? <FilteredDots /> : null}
     </>
   )
 }

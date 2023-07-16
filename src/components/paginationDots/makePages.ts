@@ -6,13 +6,13 @@ import { UseCharacterContext } from '../context/getContext'
 export default function MakePages() {
   const [pages, setPages] = useState<(number | string)[]>([])
   const [filteredPages, setFilteredPages] = useState<(number | string)[]>([])
-
   const { useCharacterContext } = UseCharacterContext()
+
   const makePages = useCallback(() => {
-    if (useCharacterContext.characterData.totalPages) {
+    if (useCharacterContext.characterData.slicedPages) {
       const newPages = []
 
-      for (let i = 1; i <= useCharacterContext.characterData.totalPages; i++) {
+      for (let i = 1; i <= useCharacterContext.characterData.slicedPages; i++) {
         newPages.push(i)
       }
       setPages(newPages)
