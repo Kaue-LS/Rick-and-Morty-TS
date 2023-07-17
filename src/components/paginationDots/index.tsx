@@ -2,7 +2,8 @@ import React, { useCallback, useState } from 'react'
 import { UseCharacterContext } from '../context/getContext'
 import classNames from 'classnames'
 import MakePages from './makePages'
-import { MakeDots } from './makeDots'
+import { MakeDots, MakeFilteredDots } from './makeDots'
+import FilteredDots from './filteredDots'
 
 export default function PaginationDots() {
   // get the current page
@@ -11,13 +12,12 @@ export default function PaginationDots() {
   // get context
   const { useCharacterContext } = UseCharacterContext()
   // getPages Filtered
-  const { pages } = MakePages()
+  const { pages, filteredPages } = MakePages()
   // Add selectedPage on useState
   const [pageSelect, setPageSelect] = useState<number>(numberPage ? numberPage : 1)
-  // // makeDots
+  // makeDots
   const { pageDots } = MakeDots(pages, pageSelect)
-
-
+  const { filteredPageDots } = MakeFilteredDots(filteredPages)
 
   // Add number to localStorage and change the items per page
   const handlePageDotClick = useCallback(
@@ -74,6 +74,8 @@ export default function PaginationDots() {
           </div>
         </section>
       )}
+      {useCharacterContext.filteredMode && filteredPageDots.length > 0 && <FilteredDots filteredPageDots={filteredPageDots} />}
+
     </>
   )
 }

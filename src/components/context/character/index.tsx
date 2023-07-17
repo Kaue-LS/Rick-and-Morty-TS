@@ -1,6 +1,7 @@
 import React, { ReactNode, useState } from 'react'
 import { characterContext } from '../getContext'
 import GetCharacter from './getCharacter'
+import GetFilteredCharacter from './getFilteredCharacter'
 
 export default function DataProvider({ children }: { children: ReactNode }) {
   // base address on api
@@ -10,14 +11,17 @@ export default function DataProvider({ children }: { children: ReactNode }) {
   // text that is use on searchBar
   const [text, setText] = useState('')
   // switch if will fetch other characters
-  const [getNewData, setGetNewData] = useState(false)
+  const [getNewData, setGetNewData] = useState<boolean>(false)
   // if is filtered mode, searched character
-  const [filteredMode, setFilteredMode] = useState(false)
+  const [filteredMode, setFilteredMode] = useState<boolean>(false)
   // --------------------------------------
-
+  // switch if will fetch the filtered characters
+  const [getFilteredData, setGetFilteredData] = useState<boolean>(false)
+  // the page selected of the filtered page
+  const [selectFiltered, setSelectFiltered] = useState<number>(1)
 
   // fetch all the characters
-  const { character, slicedPages } = GetCharacter({
+  const { character, slicedPages, allCharacter } = GetCharacter({
     baseUrl,
     getPage,
     getNewData,
@@ -29,10 +33,21 @@ export default function DataProvider({ children }: { children: ReactNode }) {
     character: character ? character : [],
     slicedPages,
   }
-  // ---------------------------------------
 
+  const { filteredCharacterList, filteredPages } = GetFilteredCharacter({
+    getFilteredData,
+    allCharacter,
+    selectFiltered,
+    text,
+    setGetFilteredData,
+    setGetNewData,
+    setFilteredMode,
+  })
 
-
+  const filteredCharacterData = {
+    filteredCharacterList,
+    filteredPages,
+  }
 
   return (
     <>
@@ -40,11 +55,13 @@ export default function DataProvider({ children }: { children: ReactNode }) {
         <characterContext.Provider
           value={{
             characterData,
+            filteredCharacterData,
             getNewData,
-            setGetNewData,
             text,
             filteredMode,
             setText,
+            setGetNewData,
+            setGetFilteredData,
           }}
         >
           {children}

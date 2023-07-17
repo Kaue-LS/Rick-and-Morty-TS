@@ -17,10 +17,10 @@ export default function MakePages() {
       }
       setPages(newPages)
     }
-    if (useCharacterContext.filteredPages) {
+    if (useCharacterContext.filteredCharacterData?.filteredPages) {
       const newPages = []
 
-      for (let i = 1; i <= useCharacterContext.filteredPages; i++) {
+      for (let i = 1; i <= useCharacterContext?.filteredCharacterData?.filteredPages; i++) {
         newPages.push(i)
       }
       setFilteredPages(newPages)

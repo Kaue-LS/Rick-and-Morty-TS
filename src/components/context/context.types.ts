@@ -9,14 +9,13 @@ interface CharacterProps {
 }
 
 interface FilteredProps {
-  totalPages: number
-  baseUrl: string
+  allCharacter: CharacterProps[]
   getFilteredData: boolean
+  selectFiltered: number
+  text: string
   setGetFilteredData: React.Dispatch<React.SetStateAction<boolean>>
   setGetNewData: React.Dispatch<React.SetStateAction<boolean>>
   setFilteredMode: React.Dispatch<React.SetStateAction<boolean>>
-  selectFiltered: number
-  text: string
 }
 
 interface contextCharacterProps {
@@ -25,16 +24,19 @@ interface contextCharacterProps {
     slicedPages: number
   }
   getNewData?: boolean
-  setGetNewData?: React.Dispatch<React.SetStateAction<boolean>>
   text: string
-  setText?: React.Dispatch<React.SetStateAction<string>>
   filteredMode?: boolean
-  setFilteredMode?: React.Dispatch<React.SetStateAction<boolean>>
   getFilteredData?: boolean
-  setGetFilteredData?: React.Dispatch<React.SetStateAction<boolean>>
   filteredPages?: number
-  filteredCharacterList?: CharacterProps[]
+  filteredCharacterData?: {
+    filteredCharacterList: CharacterProps[]
+    filteredPages: number
+  }
   selectFiltered?: number
+  setGetNewData?: React.Dispatch<React.SetStateAction<boolean>>
+  setGetFilteredData?: React.Dispatch<React.SetStateAction<boolean>>
+  setFilteredMode?: React.Dispatch<React.SetStateAction<boolean>>
+  setText?: React.Dispatch<React.SetStateAction<string>>
   setSelectFiltered?: React.Dispatch<React.SetStateAction<number>>
 }
 

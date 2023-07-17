@@ -1,13 +1,14 @@
 import React from 'react'
 import classNames from 'classnames'
-import MakePages from './makePages'
 import { UseCharacterContext } from '../context/getContext'
-import { MakeFilteredDots } from './makeDots'
 
-export default function FilteredDots() {
+interface FilteredDotsProps {
+  filteredPageDots: (string | number)[]
+}
+
+export default function FilteredDots({ filteredPageDots }: FilteredDotsProps) {
   const { useCharacterContext } = UseCharacterContext()
-  const { filteredPages } = MakePages()
-  const { filteredPageDots } = MakeFilteredDots(filteredPages)
+
   const handlePageDotFilteredClick = (item: number | string) => {
     if (typeof item === 'number' && item !== useCharacterContext.selectFiltered) {
       const { setSelectFiltered, setGetFilteredData } = useCharacterContext
@@ -48,8 +49,7 @@ export default function FilteredDots() {
                 title='number-dots'
                 className={classNames(
                   'e-paginationDots__container__dots__button',
-                  `pageDot${
-                    item === useCharacterContext.selectFiltered ? '--selected' : '--disabled'
+                  `pageDot${item === useCharacterContext.selectFiltered ? '--selected' : '--disabled'
                   }`,
                   item === '...' ? 'pageDot--string' : '',
                 )}

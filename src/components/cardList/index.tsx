@@ -4,8 +4,7 @@ import { UseCharacterContext } from '../context/getContext'
 export default function CardList() {
   const { useCharacterContext } = UseCharacterContext()
   const { character } = useCharacterContext.characterData
-  const { filteredMode } = useCharacterContext
-
+  const { filteredMode, filteredCharacterData } = useCharacterContext;
   return (
     <section className='e-cardList'>
       <div className='e-cardList__container'>
@@ -48,17 +47,15 @@ export default function CardList() {
           </>
         ) : (
           <>
-            {/* {filteredCharacterList?.map((item) => {
+            {filteredCharacterData?.filteredCharacterList?.map((item) => {
               return (
                 <div className='e-cardList__container__card' key={item.id}>
                   <div className='e-cardList__container__card__imageContainer'>
-                    <img alt={item.name} loading={'lazy'} src={item.image} />
+                    <img alt={item.name} loading='lazy' src={item.image} />
                   </div>
                   <div className='e-cardList__container__card__info'>
-                    <div className={'e-cardList__container__card__info__status'}>
-                      <span
-                        className={`e-cardList__container__card__info__status__${item.status}`}
-                      ></span>
+                    <div className={`e-cardList__container__card__info__status__${item.status}`}>
+                      <span></span>
                     </div>
                     <div className='e-cardList__container__card__info__label'>
                       <label>
@@ -80,8 +77,9 @@ export default function CardList() {
                     </div>
                   </div>
                 </div>
-              )
-            })} */}
+              );
+            })}
+
           </>
         )}
       </div>

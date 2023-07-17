@@ -10,6 +10,7 @@ function GetCharacter({
   getPage,
 }: GetCharacterProps) {
   const [character, setCharacter] = useState<CharacterProps[]>([])
+  const [allCharacter, setAllCharacter] = useState<CharacterProps[]>([])
   const [totalPages, setTotalPages] = useState<number>(0)
   const [slicedPages, setSlicedPages] = useState<number>(0)
   const itemsPerPage = 20 // Number of items per page
@@ -63,6 +64,7 @@ function GetCharacter({
 
         // Get the items for the current page
         const currentPageItems = getAllCharacter.slice(startIndex, endIndex)
+        setAllCharacter(getAllCharacter)
         setCharacter(currentPageItems)
         setSlicedPages(pages)
         setGetNewData(true)
@@ -84,6 +86,7 @@ function GetCharacter({
   }, [getAllCharacter, totalPages])
 
   return {
+    allCharacter,
     character,
     slicedPages,
   }
