@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react'
 import { UseCharacterContext } from '../context/getContext'
 import classNames from 'classnames'
 import MakePages from './makePages'
-import { MakeDots, MakeFilteredDots } from './makeDots'
+import { MakeDots } from './makeDots'
 
 export default function PaginationDots() {
   // get the current page
@@ -12,29 +12,29 @@ export default function PaginationDots() {
   const { useCharacterContext } = UseCharacterContext()
   // getPages Filtered
   const { pages } = MakePages()
-  // eslint-disable-next-line
-  console.log(pages)
   // Add selectedPage on useState
   const [pageSelect, setPageSelect] = useState<number>(numberPage ? numberPage : 1)
   // // makeDots
   const { pageDots } = MakeDots(pages, pageSelect)
-  // const handlePageDotClick = useCallback(
-  //   (item: number | string) => {
-  //     if (typeof item === 'number' && item !== pageSelect) {
-  //       setPageSelect(item)
 
-  //       localStorage.setItem('page', item.toString())
-  //       if (useCharacterContext?.setGetNewData) {
-  //         useCharacterContext.setGetNewData(false)
-  //         window.scroll({
-  //           top: 0,
-  //           behavior: 'smooth',
-  //         })
-  //       }
-  //     }
-  //   },
-  //   [pageSelect, useCharacterContext],
-  // )
+
+
+  // Add number to localStorage and change the items per page
+  const handlePageDotClick = useCallback(
+    (item: number | string) => {
+      if (typeof item === 'number' && item !== pageSelect) {
+        setPageSelect(item)
+
+        localStorage.setItem('page', item.toString())
+        if (useCharacterContext.setGetNewData) useCharacterContext.setGetNewData(false)
+        window.scroll({
+          top: 0,
+          behavior: 'smooth',
+        })
+      }
+    },
+    [pageSelect, useCharacterContext],
+  )
 
   return (
     <>
@@ -52,7 +52,7 @@ export default function PaginationDots() {
                   key={index}
                 >
                   <input
-                    // onClick={() => handlePageDotClick(item)}
+                    onClick={() => handlePageDotClick(item)}
                     checked={item === pageSelect}
                     value={item}
                     disabled={item === '...'}
