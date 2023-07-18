@@ -3,7 +3,7 @@ import { UseCharacterContext } from '../context/getContext'
 
 export default function CardList() {
   const { useCharacterContext } = UseCharacterContext()
-  const { character } = useCharacterContext.characterData
+  const { character } = useCharacterContext.data
   const { filteredMode, filteredCharacterData } = useCharacterContext;
   return (
     <section className='e-cardList'>

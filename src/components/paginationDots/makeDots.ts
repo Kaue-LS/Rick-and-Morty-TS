@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
-import { UseCharacterContext } from '../context/getContext'
+import type { makeDotsProps } from './paginations.types'
 export function MakeDots(pages: (number | string)[], pageSelect: number) {
   const [pageDots, setPageDots] = useState<(number | string)[]>([])
 
@@ -33,31 +33,27 @@ export function MakeDots(pages: (number | string)[], pageSelect: number) {
   }
 }
 
-export function MakeFilteredDots(filteredPages: (number | string)[]) {
+export function MakeFilteredDots(
+  filteredPages: (number | string)[],
+  selectFiltered: number | undefined,
+) {
   const [filteredPageDots, setFilteredPageDots] = useState<(number | string)[]>([])
-  const { useCharacterContext } = UseCharacterContext()
 
   const addFilteredDots = useCallback(() => {
     if (filteredPages.length > 4) {
       let numberOfPages: (number | string)[] = [...filteredPages]
-      if (useCharacterContext.selectFiltered) {
-        if (useCharacterContext.selectFiltered >= 1 && useCharacterContext.selectFiltered <= 3) {
+      if (selectFiltered) {
+        if (selectFiltered >= 1 && selectFiltered <= 3) {
           numberOfPages = [1, 2, 3, 4, '...', filteredPages.length]
-        } else if (useCharacterContext.selectFiltered === 4) {
+        } else if (selectFiltered === 4) {
           // const sliced = filteredPages.slice(0, 1)
           const sliced2 = filteredPages.slice(1, 5)
           numberOfPages = [...sliced2, '...', filteredPages.length]
-        } else if (
-          useCharacterContext.selectFiltered >= 5 &&
-          useCharacterContext.selectFiltered <= filteredPages.length - 3
-        ) {
+        } else if (selectFiltered >= 5 && selectFiltered <= filteredPages.length - 3) {
           const slicedStart = filteredPages.slice(0, 1)
-          const slicedEnd = filteredPages.slice(
-            useCharacterContext.selectFiltered - 2,
-            useCharacterContext.selectFiltered + 1,
-          )
+          const slicedEnd = filteredPages.slice(selectFiltered - 2, selectFiltered + 1)
           numberOfPages = [...slicedStart, '...', ...slicedEnd, '...', filteredPages.length]
-        } else if (useCharacterContext.selectFiltered >= filteredPages.length - 2) {
+        } else if (selectFiltered >= filteredPages.length - 2) {
           const sliced = filteredPages.slice(filteredPages.length - 4, filteredPages.length)
           numberOfPages = [1, '...', ...sliced]
         }
@@ -65,7 +61,7 @@ export function MakeFilteredDots(filteredPages: (number | string)[]) {
       }
     }
     setFilteredPageDots(filteredPages)
-  }, [filteredPages, useCharacterContext.selectFiltered])
+  }, [filteredPages, selectFiltered])
   useEffect(() => {
     addFilteredDots()
   }, [addFilteredDots])

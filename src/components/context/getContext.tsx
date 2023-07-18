@@ -2,11 +2,16 @@ import { createContext, useContext } from 'react'
 import type { contextCharacterProps, infoContextProps } from './context.types'
 
 export const characterContext = createContext<contextCharacterProps>({
-  characterData: {
+  data: {
     character: [],
-    slicedPages: 0,
+    pages: 0,
   },
   text: '',
+  filteredMode: false,
+  getFilteredData: false,
+  filteredPages: 0,
+  selectFiltered: 0,
+
 })
 
 export const infoContext = createContext<infoContextProps>({

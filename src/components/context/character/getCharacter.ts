@@ -12,7 +12,7 @@ function GetCharacter({
   const [character, setCharacter] = useState<CharacterProps[]>([])
   const [allCharacter, setAllCharacter] = useState<CharacterProps[]>([])
   const [totalPages, setTotalPages] = useState<number>(0)
-  const [slicedPages, setSlicedPages] = useState<number>(0)
+  const [pages, setPages] = useState<number>(0)
   const itemsPerPage = 20 // Number of items per page
   const pageSelect = parseInt(getPage ? getPage : '')
 
@@ -66,7 +66,7 @@ function GetCharacter({
         const currentPageItems = getAllCharacter.slice(startIndex, endIndex)
         setAllCharacter(getAllCharacter)
         setCharacter(currentPageItems)
-        setSlicedPages(pages)
+        setPages(pages)
         setGetNewData(true)
       } catch (error) {
         // eslint-disable-next-line
@@ -88,7 +88,7 @@ function GetCharacter({
   return {
     allCharacter,
     character,
-    slicedPages,
+    pages,
   }
 }
 

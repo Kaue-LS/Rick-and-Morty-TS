@@ -21,7 +21,7 @@ export default function DataProvider({ children }: { children: ReactNode }) {
   const [selectFiltered, setSelectFiltered] = useState<number>(1)
 
   // fetch all the characters
-  const { character, slicedPages, allCharacter } = GetCharacter({
+  const { character, pages, allCharacter } = GetCharacter({
     baseUrl,
     getPage,
     getNewData,
@@ -29,9 +29,9 @@ export default function DataProvider({ children }: { children: ReactNode }) {
     filteredMode,
   })
 
-  const characterData = {
+  const data = {
     character: character ? character : [],
-    slicedPages,
+    pages,
   }
 
   const { filteredCharacterList, filteredPages } = GetFilteredCharacter({
@@ -51,10 +51,10 @@ export default function DataProvider({ children }: { children: ReactNode }) {
 
   return (
     <>
-      {characterData && slicedPages ? (
+      {data && pages ? (
         <characterContext.Provider
           value={{
-            characterData,
+            data,
             filteredCharacterData,
             getNewData,
             text,
@@ -62,6 +62,11 @@ export default function DataProvider({ children }: { children: ReactNode }) {
             setText,
             setGetNewData,
             setGetFilteredData,
+            getFilteredData,
+            filteredPages,
+            selectFiltered,
+            setFilteredMode,
+            setSelectFiltered
           }}
         >
           {children}

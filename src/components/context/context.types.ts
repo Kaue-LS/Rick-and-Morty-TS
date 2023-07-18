@@ -1,38 +1,20 @@
-interface CharacterProps {
-  id: number
-  name: string
-  status: string
-  species: string
-  type: string
-  gender: string
-  image: string
-}
-
-interface FilteredProps {
-  allCharacter: CharacterProps[]
-  getFilteredData: boolean
-  selectFiltered: number
-  text: string
-  setGetFilteredData: React.Dispatch<React.SetStateAction<boolean>>
-  setGetNewData: React.Dispatch<React.SetStateAction<boolean>>
-  setFilteredMode: React.Dispatch<React.SetStateAction<boolean>>
-}
+import type { CharacterProps } from './character/character.types'
 
 interface contextCharacterProps {
-  characterData: {
+  data: {
     character: CharacterProps[]
-    slicedPages: number
+    pages: number
   }
   getNewData?: boolean
   text: string
-  filteredMode?: boolean
-  getFilteredData?: boolean
-  filteredPages?: number
+  filteredMode: boolean
+  getFilteredData: boolean
+  filteredPages: number
   filteredCharacterData?: {
     filteredCharacterList: CharacterProps[]
     filteredPages: number
   }
-  selectFiltered?: number
+  selectFiltered: number
   setGetNewData?: React.Dispatch<React.SetStateAction<boolean>>
   setGetFilteredData?: React.Dispatch<React.SetStateAction<boolean>>
   setFilteredMode?: React.Dispatch<React.SetStateAction<boolean>>
@@ -58,4 +40,4 @@ interface infoContextProps {
   }
 }
 
-export type { CharacterProps, FilteredProps, contextCharacterProps, infoContextProps }
+export type { CharacterProps, contextCharacterProps, infoContextProps }

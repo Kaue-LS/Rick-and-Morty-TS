@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
-import type { CharacterProps, FilteredProps } from '../context.types'
-
+import type { CharacterProps } from '../context.types'
+import type { FilteredProps } from './character.types'
 export default function GetFilteredCharacter({
   getFilteredData,
   selectFiltered,
