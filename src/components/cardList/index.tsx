@@ -51,11 +51,13 @@ export default function CardList() {
               return (
                 <div className='e-cardList__container__card' key={item.id}>
                   <div className='e-cardList__container__card__imageContainer'>
-                    <img alt={item.name} loading='lazy' src={item.image} />
+                    <img alt={item.name} loading={'lazy'} src={item.image} />
                   </div>
                   <div className='e-cardList__container__card__info'>
-                    <div className={`e-cardList__container__card__info__status__${item.status}`}>
-                      <span></span>
+                    <div className={'e-cardList__container__card__info__status'}>
+                      <span
+                        className={`e-cardList__container__card__info__status__${item.status}`}
+                      ></span>
                     </div>
                     <div className='e-cardList__container__card__info__label'>
                       <label>

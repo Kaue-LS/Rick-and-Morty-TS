@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useState } from 'react'
-import type { makeDotsProps } from './paginations.types'
 export function MakeDots(pages: (number | string)[], pageSelect: number) {
   const [pageDots, setPageDots] = useState<(number | string)[]>([])
 
