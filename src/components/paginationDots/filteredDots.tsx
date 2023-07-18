@@ -1,16 +1,11 @@
 import React from 'react'
 import classNames from 'classnames'
-import MakePages from './makePages'
-import { UseCharacterContext } from '../context/getContext'
-import { MakeFilteredDots } from './makeDots'
+import type { FilteredDotsProps } from './paginations.types'
 
-export default function FilteredDots() {
-  const { useCharacterContext } = UseCharacterContext()
-  const { filteredPages } = MakePages()
-  const { filteredPageDots } = MakeFilteredDots(filteredPages)
+export default function FilteredDots({ filteredPageDots, setGetFilteredData, setSelectFiltered, selectFiltered }: FilteredDotsProps) {
+
   const handlePageDotFilteredClick = (item: number | string) => {
-    if (typeof item === 'number' && item !== useCharacterContext.selectFiltered) {
-      const { setSelectFiltered, setGetFilteredData } = useCharacterContext
+    if (typeof item === 'number' && item !== selectFiltered) {
       if (setSelectFiltered && setGetFilteredData) {
         setSelectFiltered(item)
         setGetFilteredData(true)
@@ -32,13 +27,13 @@ export default function FilteredDots() {
               className={classNames(
                 item === '...' ? 'dot--string' : '',
                 'e-paginationDots__container__dots',
-                `pageDot${item === useCharacterContext.selectFiltered ? '--selected' : ''}`,
+                `pageDot${item === selectFiltered ? '--selected' : ''}`,
               )}
               key={index}
             >
               <input
                 onClick={() => handlePageDotFilteredClick(item)}
-                checked={item === useCharacterContext.selectFiltered}
+                checked={item === selectFiltered}
                 value={item}
                 disabled={item === '...'}
                 readOnly={item === '...'}
@@ -48,8 +43,7 @@ export default function FilteredDots() {
                 title='number-dots'
                 className={classNames(
                   'e-paginationDots__container__dots__button',
-                  `pageDot${
-                    item === useCharacterContext.selectFiltered ? '--selected' : '--disabled'
+                  `pageDot${item === selectFiltered ? '--selected' : '--disabled'
                   }`,
                   item === '...' ? 'pageDot--string' : '',
                 )}

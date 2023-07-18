@@ -3,9 +3,8 @@ import { UseCharacterContext } from '../context/getContext'
 
 export default function CardList() {
   const { useCharacterContext } = UseCharacterContext()
-  const { character } = useCharacterContext.characterData
-  const { filteredCharacterList, filteredMode } = useCharacterContext
-
+  const { character } = useCharacterContext.data
+  const { filteredMode, filteredCharacterData } = useCharacterContext;
   return (
     <section className='e-cardList'>
       <div className='e-cardList__container'>
@@ -48,7 +47,7 @@ export default function CardList() {
           </>
         ) : (
           <>
-            {filteredCharacterList?.map((item) => {
+            {filteredCharacterData?.filteredCharacterList?.map((item) => {
               return (
                 <div className='e-cardList__container__card' key={item.id}>
                   <div className='e-cardList__container__card__imageContainer'>
@@ -80,8 +79,9 @@ export default function CardList() {
                     </div>
                   </div>
                 </div>
-              )
+              );
             })}
+
           </>
         )}
       </div>

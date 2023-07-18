@@ -4,57 +4,69 @@ import GetCharacter from './getCharacter'
 import GetFilteredCharacter from './getFilteredCharacter'
 
 export default function DataProvider({ children }: { children: ReactNode }) {
+  // base address on api
   const baseUrl = 'https://rickandmortyapi.com/api'
+  // get page on localStorage
   const getPage = localStorage.getItem('page')?.toString()
-
+  // text that is use on searchBar
   const [text, setText] = useState('')
-
-  const [getNewData, setGetNewData] = useState(false)
+  // switch if will fetch other characters
+  const [getNewData, setGetNewData] = useState<boolean>(false)
+  // if is filtered mode, searched character
+  const [filteredMode, setFilteredMode] = useState<boolean>(false)
+  // --------------------------------------
+  // switch if will fetch the filtered characters
+  const [getFilteredData, setGetFilteredData] = useState<boolean>(false)
+  // the page selected of the filtered page
   const [selectFiltered, setSelectFiltered] = useState<number>(1)
-  const [getFilteredData, setGetFilteredData] = useState(false)
-  const [filteredMode, setFilteredMode] = useState(false)
 
-  const getCharacter = GetCharacter({
+  // fetch all the characters
+  const { character, pages, allCharacter } = GetCharacter({
     baseUrl,
     getPage,
     getNewData,
     setGetNewData,
     filteredMode,
   })
-  const { character, totalPages } = getCharacter
 
-  const characterData = {
+  const data = {
     character: character ? character : [],
-    totalPages,
+    pages,
   }
 
   const { filteredCharacterList, filteredPages } = GetFilteredCharacter({
-    totalPages,
-    baseUrl,
-    selectFiltered,
     getFilteredData,
+    allCharacter,
+    selectFiltered,
+    text,
     setGetFilteredData,
     setGetNewData,
     setFilteredMode,
-    text,
   })
+
+  const filteredCharacterData = {
+    filteredCharacterList,
+    filteredPages,
+  }
+
   return (
     <>
-      {characterData && totalPages ? (
+      {data && pages ? (
         <characterContext.Provider
           value={{
-            characterData,
+            data,
+            filteredCharacterData,
             getNewData,
-            setGetNewData,
-            getFilteredData,
             text,
             filteredMode,
-            setGetFilteredData,
-            selectFiltered,
-            setSelectFiltered,
-            filteredCharacterList,
-            filteredPages,
             setText,
+            setGetNewData,
+            setGetFilteredData,
+            getFilteredData,
+            filteredPages,
+            selectFiltered,
+            setFilteredMode,
+            setSelectFiltered
           }}
         >
           {children}

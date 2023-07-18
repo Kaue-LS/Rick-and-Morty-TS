@@ -1,31 +1,30 @@
 import { useCallback, useEffect, useState } from 'react'
-import { UseCharacterContext } from '../context/getContext'
+import type { makePagesProps } from './paginations.types'
 
 // Generate array of number of pages in agreement with the character's pages
 
-export default function MakePages() {
+export default function MakePages({ data, filteredCharacterData }: makePagesProps) {
   const [pages, setPages] = useState<(number | string)[]>([])
   const [filteredPages, setFilteredPages] = useState<(number | string)[]>([])
 
-  const { useCharacterContext } = UseCharacterContext()
   const makePages = useCallback(() => {
-    if (useCharacterContext.characterData.totalPages) {
+    if (data.pages) {
       const newPages = []
 
-      for (let i = 1; i <= useCharacterContext.characterData.totalPages; i++) {
+      for (let i = 1; i <= data.pages; i++) {
         newPages.push(i)
       }
       setPages(newPages)
     }
-    if (useCharacterContext.filteredPages) {
+    if (filteredCharacterData?.filteredPages) {
       const newPages = []
 
-      for (let i = 1; i <= useCharacterContext.filteredPages; i++) {
+      for (let i = 1; i <= filteredCharacterData?.filteredPages; i++) {
         newPages.push(i)
       }
       setFilteredPages(newPages)
     }
-  }, [useCharacterContext])
+  }, [data.pages, filteredCharacterData])
 
   useEffect(() => {
     makePages()
