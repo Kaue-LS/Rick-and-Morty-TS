@@ -1,13 +1,18 @@
 import React, { ReactNode, useState } from 'react'
 import { characterContext } from '../getContext'
-import GetCharacter from './getCharacter'
 import GetFilteredCharacter from './getFilteredCharacter'
+import GetApiPage from './getPage'
+import GetAllCharacter from './getAllCharacter'
+import SlicePage from './slicePage'
+import { CharacterProps } from './character.types'
 
-export default function DataProvider({ children }: { children: ReactNode }) {
+export default function CharacterProvider({ children }: { children: ReactNode }) {
   // base address on api
   const baseUrl = 'https://rickandmortyapi.com/api'
+  // total of items on each page
+  const itemsPerPage = 20
   // get page on localStorage
-  const getPage = localStorage.getItem('page')?.toString()
+  const getPage = localStorage.getItem('pageCharacter')?.toString()
   // text that is use on searchBar
   const [text, setText] = useState('')
   // switch if will fetch other characters
@@ -20,17 +25,35 @@ export default function DataProvider({ children }: { children: ReactNode }) {
   // the page selected of the filtered page
   const [selectFiltered, setSelectFiltered] = useState<number>(1)
 
+  const pageSelect = parseInt(getPage ? getPage : '1')
+
+  // fetch totalPages of Character's API
+  const { totalPages } = GetApiPage({ baseUrl })
+
   // fetch all the characters
-  const { character, pages, allCharacter } = GetCharacter({
+  const { allCharacter } = GetAllCharacter({
     baseUrl,
-    getPage,
     getNewData,
     setGetNewData,
     filteredMode,
+    totalPages
   })
 
+
+  let character: CharacterProps[] = [];
+  let pages = 0;
+
+  if (allCharacter.length) {
+    const result = SlicePage({
+      allCharacter,
+      itemsPerPage,
+      pageSelect
+    });
+    character = result.character;
+    pages = result.pages;
+  }
   const data = {
-    character: character ? character : [],
+    character: character,
     pages,
   }
 
@@ -51,7 +74,7 @@ export default function DataProvider({ children }: { children: ReactNode }) {
 
   return (
     <>
-      {data && pages ? (
+      {character.length && pages ? (
         <characterContext.Provider
           value={{
             data,

@@ -14,7 +14,19 @@ interface CharacterProps {
   gender: string
   image: string
 }
+interface GetAllCharacterProps {
+  getNewData: boolean
+  filteredMode: boolean
+  totalPages: number
+  setGetNewData: React.Dispatch<React.SetStateAction<boolean>>
+  baseUrl: string
+}
 
+interface SlicePageProps {
+  allCharacter: CharacterProps[]
+  pageSelect: number
+  itemsPerPage: number
+}
 interface FilteredProps {
   allCharacter: CharacterProps[]
   getFilteredData: boolean
@@ -24,4 +36,10 @@ interface FilteredProps {
   setGetNewData: React.Dispatch<React.SetStateAction<boolean>>
   setFilteredMode: React.Dispatch<React.SetStateAction<boolean>>
 }
-export type { GetCharacterProps, FilteredProps, CharacterProps }
+export type {
+  GetCharacterProps,
+  FilteredProps,
+  CharacterProps,
+  GetAllCharacterProps,
+  SlicePageProps,
+}

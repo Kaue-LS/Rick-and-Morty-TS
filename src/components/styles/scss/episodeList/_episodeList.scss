@@ -1,0 +1,31 @@
+.e-episodeList {
+    &__container {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        &__card {
+            padding: 10px;
+            background: $color-main-black;
+            width: 100%;
+            flex: 1;
+            display: flex;
+            border-radius: 10px;
+            color: #fff;
+            align-items: center;
+
+            span {
+                margin-inline: 20px;
+
+            }
+
+            h3 {
+                flex: 1;
+            }
+
+            p {
+                margin: 0 20px 0 auto;
+            }
+        }
+    }
+}

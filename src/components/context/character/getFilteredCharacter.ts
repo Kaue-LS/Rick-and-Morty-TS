@@ -38,6 +38,7 @@ export default function GetFilteredCharacter({
             Error('Error occurred during fetch requests:')
           }
         } else {
+          localStorage.setItem('page', '1')
           setGetNewData(false)
           setGetFilteredData(false)
           setFilteredMode(false)

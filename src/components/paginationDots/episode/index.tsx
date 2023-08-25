@@ -1,41 +1,46 @@
 import React, { useCallback, useState } from 'react'
 import classNames from 'classnames'
-import FilteredDots from './filteredDots'
-import type { PaginationsProps } from './paginations.types'
+import { UseEpisodeContext } from '../../context/getContext'
+import MakePages from '../makePages'
+import { MakeDots } from '../makeDots'
 
-export default function PaginationDots({
-  pageSelect,
-  setPageSelect,
-  getNewData,
-  setGetNewData,
-  pageDots,
-  filteredPageDots,
-  filteredMode,
-  selectFiltered,
-  setGetFilteredData,
-  setSelectFiltered
-}: PaginationsProps) {
-
+export default function PaginationDots() {
+  // get the current page
+  const getPage = localStorage.getItem('pageEpisode')?.toString()
+  const numberPage = getPage ? parseInt(getPage, 10) : 1
+  // get context
+  const { useEpisodeContext } = UseEpisodeContext()
+  const { data, getNewData, setGetNewData } = useEpisodeContext
+  // getPages Filtered
+  const { pages } = MakePages({
+    data,
+  }
+  )
+  // Add selectedPage on useState
+  const [pageSelect, setPageSelect] = useState<number>(numberPage ? numberPage : 1)
+  // makeDots
+  const { pageDots } = MakeDots(pages, pageSelect)
   // Add number to localStorage and change the items per page
   const handlePageDotClick = useCallback(
     (item: number | string) => {
       if (typeof item === 'number' && item !== pageSelect) {
-        setPageSelect(item)
+        if (setPageSelect)
+          setPageSelect(item)
 
-        localStorage.setItem('page', item.toString())
-        if (getNewData) setGetNewData(false)
+        localStorage.setItem('pageEpisode', item.toString())
+        if (getNewData && setGetNewData) setGetNewData(false)
         window.scroll({
           top: 0,
           behavior: 'smooth',
         })
       }
     },
-    [pageSelect, getNewData, setPageSelect, setGetNewData],
+    [pageSelect, getNewData, setGetNewData],
   )
 
   return (
     <>
-      {!filteredMode && pageDots.length > 0 && (
+      {pageDots && (
         <section className='e-paginationDots'>
           <div className={'e-paginationDots__container'}>
             {pageDots.map((item, index) => {
@@ -71,7 +76,6 @@ export default function PaginationDots({
           </div>
         </section>
       )}
-      {filteredMode && filteredPageDots.length > 0 && <FilteredDots selectFiltered={selectFiltered} setGetFilteredData={setGetFilteredData} setSelectFiltered={setSelectFiltered} filteredPageDots={filteredPageDots} />}
 
     </>
   )

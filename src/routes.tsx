@@ -1,19 +1,27 @@
 import React from 'react'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
-import HomePage from './pages/home'
-import DataProvider from './components/context/character'
+import CharacterPage from './pages/character'
+import CharacterProvider from './components/context/character'
+import EpisodeProvider from './components/context/episode'
+import EpisodePage from './pages/episode'
 
 export default function Routes() {
   const routes = [
     {
       path: '/',
-      element: <HomePage />,
+      element: <CharacterPage />,
+    },
+    {
+      path: '/episode',
+      element: <EpisodePage />,
     },
   ]
 
   return (
-    <DataProvider>
-      <RouterProvider router={createBrowserRouter(routes)} />
-    </DataProvider>
+    <CharacterProvider>
+      <EpisodeProvider>
+        <RouterProvider router={createBrowserRouter(routes)} />
+      </EpisodeProvider>
+    </CharacterProvider>
   )
 }

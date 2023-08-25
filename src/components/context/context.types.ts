@@ -1,4 +1,5 @@
 import type { CharacterProps } from './character/character.types'
+import type { EpisodeProps } from './episode/episode.types'
 
 interface contextCharacterProps {
   data: {
@@ -40,4 +41,12 @@ interface infoContextProps {
   }
 }
 
-export type { CharacterProps, contextCharacterProps, infoContextProps }
+interface episodeContextProps {
+  data: {
+    episodes: EpisodeProps[]
+    pages: number
+  }
+  getNewData: boolean
+  setGetNewData?: React.Dispatch<React.SetStateAction<boolean>>
+}
+export type { CharacterProps, contextCharacterProps, infoContextProps, episodeContextProps }

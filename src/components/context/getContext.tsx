@@ -1,5 +1,5 @@
 import { createContext, useContext } from 'react'
-import type { contextCharacterProps, infoContextProps } from './context.types'
+import type { episodeContextProps, contextCharacterProps, infoContextProps } from './context.types'
 
 export const characterContext = createContext<contextCharacterProps>({
   data: {
@@ -32,6 +32,14 @@ export const infoContext = createContext<infoContextProps>({
   },
 })
 
+export const episodeContext = createContext<episodeContextProps>({
+  data: {
+    episodes: [],
+    pages: 0,
+  },
+  getNewData: false
+})
+
 export function UseCharacterContext() {
   const useCharacterContext = useContext(characterContext)
   if (!useCharacterContext)
@@ -44,4 +52,9 @@ export function UseInfoContext() {
     throw new Error('useInfoContext  deve ser usado dentro do Open Provider')
   return { useInfoContext }
 }
-
+export function UseEpisodeContext() {
+  const useEpisodeContext = useContext(episodeContext)
+  if (!useEpisodeContext)
+    throw new Error('useEpisodeContext  deve ser usado dentro do Open Provider')
+  return { useEpisodeContext }
+}

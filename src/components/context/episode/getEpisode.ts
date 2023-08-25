@@ -1,23 +1,14 @@
 import { useCallback, useEffect, useState } from 'react'
-import type { CharacterProps } from '../context.types'
-import { GetCharacterProps } from './character.types'
+import type { EpisodeProps, GetEpisodeProps } from './episode.types'
 
-function GetCharacter({
-  getNewData,
-  baseUrl,
-  setGetNewData,
-  filteredMode,
-  getPage,
-}: GetCharacterProps) {
-  const [character, setCharacter] = useState<CharacterProps[]>([])
-  const [allCharacter, setAllCharacter] = useState<CharacterProps[]>([])
+function GetEpisode({ baseUrl, getNewData, getPage, setGetNewData }: GetEpisodeProps) {
   const [totalPages, setTotalPages] = useState<number>(0)
   const [pages, setPages] = useState<number>(0)
-  const itemsPerPage = 20 // Number of items per page
+  const [episodes, setEpisodes] = useState<EpisodeProps[]>([])
   const pageSelect = parseInt(getPage ? getPage : '')
-
+  const itemsPerPage = 20
   const getApiData = useCallback(() => {
-    fetch(`${baseUrl}/character`)
+    fetch(`${baseUrl}/episode`)
       .then((response) => {
         if (response.ok) {
           return response.json()
@@ -38,13 +29,13 @@ function GetCharacter({
       })
   }, [baseUrl])
 
-  const getAllCharacter = useCallback(async () => {
-    if (!getNewData && !filteredMode) {
+  const getAllEpisode = useCallback(async () => {
+    if (!getNewData) {
       try {
-        const getAllCharacter: CharacterProps[] = []
+        const getAllEpisode: EpisodeProps[] = []
 
         for (let i = 1; i <= totalPages; i++) {
-          const response = await fetch(`${baseUrl}/character${`/?page=${i}`}`)
+          const response = await fetch(`${baseUrl}/episode${`/?page=${i}`}`)
           if (!response.ok) {
             if (response.status === 404) {
               throw new Error('Resource not found')
@@ -55,17 +46,16 @@ function GetCharacter({
             }
           }
           const data = await response.json()
-          getAllCharacter.push(...data.results) // Push individual characters into the array
+          getAllEpisode.push(...data.results) // Push individual characters into the array
         }
 
-        const pages = Math.ceil(getAllCharacter.length / itemsPerPage)
+        const pages = Math.ceil(getAllEpisode.length / itemsPerPage)
         const startIndex = (pageSelect - 1) * itemsPerPage
         const endIndex = startIndex + itemsPerPage
 
         // Get the items for the current page
-        const currentPageItems = getAllCharacter.slice(startIndex, endIndex)
-        setAllCharacter(getAllCharacter)
-        setCharacter(currentPageItems)
+        const currentPageItems = getAllEpisode.slice(startIndex, endIndex)
+        setEpisodes(currentPageItems)
         setPages(pages)
         setGetNewData(true)
       } catch (error) {
@@ -73,23 +63,22 @@ function GetCharacter({
         console.error('Error occurred during fetch requests:', error)
       }
     }
-  }, [baseUrl, setGetNewData, pageSelect, totalPages, getNewData, filteredMode])
+  }, [baseUrl, setGetNewData, pageSelect, totalPages, getNewData])
 
   useEffect(() => {
     getApiData()
   }, [getApiData])
 
   useEffect(() => {
-    if (totalPages > 0) {
-      getAllCharacter()
+    if (totalPages > 0 && totalPages) {
+      getAllEpisode()
     }
-  }, [getAllCharacter, totalPages])
+  }, [episodes, totalPages, getAllEpisode])
 
   return {
-    allCharacter,
-    character,
+    episodes,
     pages,
   }
 }
 
-export default GetCharacter
+export default GetEpisode

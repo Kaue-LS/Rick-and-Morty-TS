@@ -3,13 +3,13 @@ export default function SideBar() {
   return (
     <div className='modalMenu'>
       <a className='modalMenu__itemLink' href='/'>
-        Início
+        Character
       </a>
       <a className='modalMenu__itemLink' href='/'>
-        Personagens
+        Episode
       </a>
-      <a className='modalMenu__itemLink' href='/'>
-        Episódios
+      <a className='modalMenu__itemLink' href='/location'>
+        Location
       </a>
     </div>
   )

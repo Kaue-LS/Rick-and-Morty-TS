@@ -1,6 +1,6 @@
 import React from 'react'
 import classNames from 'classnames'
-import type { FilteredDotsProps } from './paginations.types'
+import type { FilteredDotsProps } from '../paginations.types'
 
 export default function FilteredDots({ filteredPageDots, setGetFilteredData, setSelectFiltered, selectFiltered }: FilteredDotsProps) {
 
@@ -18,7 +18,7 @@ export default function FilteredDots({ filteredPageDots, setGetFilteredData, set
     }
   }
 
-  return (
+  return filteredPageDots ? (
     <section className='e-paginationDots'>
       <div className={'e-paginationDots__container'}>
         {filteredPageDots.map((item, index) => {
@@ -54,5 +54,5 @@ export default function FilteredDots({ filteredPageDots, setGetFilteredData, set
         })}
       </div>
     </section>
-  )
+  ) : null
 }
