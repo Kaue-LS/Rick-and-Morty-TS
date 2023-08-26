@@ -1,10 +1,10 @@
 import React, { ReactNode, useState } from 'react'
 import { characterContext } from '../getContext'
-import GetFilteredCharacter from './getFilteredCharacter'
-import GetApiPage from './getPage'
-import GetAllCharacter from './getAllCharacter'
-import SlicePage from './slicePage'
-import { CharacterProps } from './character.types'
+import GetFilteredCharacter from './components/getFiltered'
+import GetApiPage from './components/getPage'
+import GetAllCharacter from './components/getAllCharacter.ts'
+import SlicePage from './components/slicePage'
+import { CharacterProps, SwitchProps } from './components/types/character.types'
 
 export default function CharacterProvider({ children }: { children: ReactNode }) {
   // base address on api
@@ -16,12 +16,13 @@ export default function CharacterProvider({ children }: { children: ReactNode })
   // text that is use on searchBar
   const [text, setText] = useState('')
   // switch if will fetch other characters
-  const [getNewData, setGetNewData] = useState<boolean>(false)
-  // if is filtered mode, searched character
-  const [filteredMode, setFilteredMode] = useState<boolean>(false)
+  const fetchSwitch: SwitchProps = {
+    getNewData: false,
+    filteredMode: false,
+    getFilteredData: false
+  }
+
   // --------------------------------------
-  // switch if will fetch the filtered characters
-  const [getFilteredData, setGetFilteredData] = useState<boolean>(false)
   // the page selected of the filtered page
   const [selectFiltered, setSelectFiltered] = useState<number>(1)
 
@@ -33,9 +34,7 @@ export default function CharacterProvider({ children }: { children: ReactNode })
   // fetch all the characters
   const { allCharacter } = GetAllCharacter({
     baseUrl,
-    getNewData,
-    setGetNewData,
-    filteredMode,
+    fetchSwitch,
     totalPages
   })
 
@@ -58,13 +57,10 @@ export default function CharacterProvider({ children }: { children: ReactNode })
   }
 
   const { filteredCharacterList, filteredPages } = GetFilteredCharacter({
-    getFilteredData,
     allCharacter,
     selectFiltered,
-    text,
-    setGetFilteredData,
-    setGetNewData,
-    setFilteredMode,
+    fetchSwitch,
+    text
   })
 
   const filteredCharacterData = {
@@ -79,16 +75,11 @@ export default function CharacterProvider({ children }: { children: ReactNode })
           value={{
             data,
             filteredCharacterData,
-            getNewData,
             text,
-            filteredMode,
-            setText,
-            setGetNewData,
-            setGetFilteredData,
-            getFilteredData,
             filteredPages,
             selectFiltered,
-            setFilteredMode,
+            fetchSwitch,
+            setText,
             setSelectFiltered
           }}
         >

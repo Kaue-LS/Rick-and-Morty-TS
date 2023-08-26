@@ -7,10 +7,13 @@ export const characterContext = createContext<contextCharacterProps>({
     pages: 0,
   },
   text: '',
-  filteredMode: false,
-  getFilteredData: false,
   filteredPages: 0,
   selectFiltered: 0,
+  fetchSwitch: {
+    filteredMode: false,
+    getFilteredData: false,
+    getNewData: false
+  }
 
 })
 

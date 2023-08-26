@@ -1,17 +1,15 @@
 import { useCallback, useEffect, useState } from 'react'
-import type { CharacterProps, GetAllCharacterProps } from './character.types'
+import type { CharacterProps, GetAllCharacterProps } from '../types/character.types'
 
 export default function GetAllCharacter({
-  getNewData,
-  filteredMode,
+  fetchSwitch,
   totalPages,
-  setGetNewData,
   baseUrl,
 }: GetAllCharacterProps) {
   const [allCharacter, setAllCharacter] = useState<CharacterProps[]>([])
 
   const fetchAllCharacter = useCallback(async () => {
-    if (!getNewData && !filteredMode && totalPages > 0) {
+    if (!fetchSwitch.getNewData && !fetchSwitch.filteredMode && totalPages > 0) {
       try {
         const allCharacter: CharacterProps[] = []
 
@@ -31,18 +29,18 @@ export default function GetAllCharacter({
         }
 
         setAllCharacter(allCharacter)
-        setGetNewData(true)
+        fetchSwitch.getNewData = true
       } catch (error) {
         // eslint-disable-next-line
         console.error('Error occurred during fetch requests:', error)
       }
     }
-  }, [baseUrl, filteredMode, getNewData, setGetNewData, totalPages])
+  }, [baseUrl, fetchSwitch, totalPages])
 
   useEffect(() => {
     fetchAllCharacter()
   }, [fetchAllCharacter])
-  
+
   return {
     allCharacter,
   }

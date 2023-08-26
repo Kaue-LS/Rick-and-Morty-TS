@@ -1,14 +1,10 @@
 import { useEffect, useState } from 'react'
-import type { CharacterProps } from '../context.types'
-import type { FilteredProps } from './character.types'
+import type { FilteredProps, CharacterProps } from '../types/character.types'
 export default function GetFilteredCharacter({
-  getFilteredData,
   selectFiltered,
   allCharacter,
+  fetchSwitch,
   text,
-  setGetFilteredData,
-  setGetNewData,
-  setFilteredMode,
 }: FilteredProps) {
   const [filteredCharacterList, setFilteredCharacterList] = useState<CharacterProps[]>([])
   const [filteredPages, setFilteredPages] = useState<number>(0)
@@ -16,7 +12,7 @@ export default function GetFilteredCharacter({
   const itemsPerPage = 20 // Number of items per page
 
   useEffect(() => {
-    if (getFilteredData) {
+    if (fetchSwitch.getFilteredData) {
       const getFilteredCharacter = async () => {
         if (text.length > 0) {
           try {
@@ -32,30 +28,16 @@ export default function GetFilteredCharacter({
 
             setFilteredCharacterList(currentPageItems)
             setFilteredPages(pages)
-            setGetFilteredData(false)
-            setFilteredMode(true)
           } catch (error) {
             Error('Error occurred during fetch requests:')
           }
         } else {
           localStorage.setItem('page', '1')
-          setGetNewData(false)
-          setGetFilteredData(false)
-          setFilteredMode(false)
         }
       }
       getFilteredCharacter()
     }
-  }, [
-    getFilteredData,
-    selectFiltered,
-    allCharacter,
-    text,
-    itemsPerPage,
-    setGetFilteredData,
-    setGetNewData,
-    setFilteredMode,
-  ])
+  }, [fetchSwitch, selectFiltered, allCharacter, text, itemsPerPage])
   if (!filteredCharacterList || !filteredPages) {
     return {
       filteredCharacterList: [],

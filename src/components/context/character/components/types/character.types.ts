@@ -1,9 +1,11 @@
-interface GetCharacterProps {
+interface SwitchProps {
   getNewData: boolean
+  filteredMode: boolean
+  getFilteredData: boolean
+}
+interface GetCharacterProps extends SwitchProps {
   baseUrl: string
   getPage?: string
-  setGetNewData: React.Dispatch<React.SetStateAction<boolean>>
-  filteredMode: boolean
 }
 interface CharacterProps {
   id: number
@@ -15,11 +17,9 @@ interface CharacterProps {
   image: string
 }
 interface GetAllCharacterProps {
-  getNewData: boolean
-  filteredMode: boolean
   totalPages: number
-  setGetNewData: React.Dispatch<React.SetStateAction<boolean>>
   baseUrl: string
+  fetchSwitch: SwitchProps
 }
 
 interface SlicePageProps {
@@ -29,14 +29,12 @@ interface SlicePageProps {
 }
 interface FilteredProps {
   allCharacter: CharacterProps[]
-  getFilteredData: boolean
   selectFiltered: number
   text: string
-  setGetFilteredData: React.Dispatch<React.SetStateAction<boolean>>
-  setGetNewData: React.Dispatch<React.SetStateAction<boolean>>
-  setFilteredMode: React.Dispatch<React.SetStateAction<boolean>>
+  fetchSwitch: SwitchProps
 }
 export type {
+  SwitchProps,
   GetCharacterProps,
   FilteredProps,
   CharacterProps,
