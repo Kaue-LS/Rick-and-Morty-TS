@@ -3,6 +3,7 @@ import type { CharacterProps, GetAllCharacterProps } from '../types/character.ty
 
 export default function GetAllCharacter({
   fetchSwitch,
+  setFetchSwitch,
   totalPages,
   baseUrl,
 }: GetAllCharacterProps) {
@@ -29,13 +30,16 @@ export default function GetAllCharacter({
         }
 
         setAllCharacter(allCharacter)
-        fetchSwitch.getNewData = true
+        setFetchSwitch((rest) => ({
+          ...rest,
+          getNewData: true,
+        }))
       } catch (error) {
         // eslint-disable-next-line
         console.error('Error occurred during fetch requests:', error)
       }
     }
-  }, [baseUrl, fetchSwitch, totalPages])
+  }, [baseUrl, fetchSwitch, totalPages, setFetchSwitch])
 
   useEffect(() => {
     fetchAllCharacter()

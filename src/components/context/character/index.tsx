@@ -16,11 +16,11 @@ export default function CharacterProvider({ children }: { children: ReactNode })
   // text that is use on searchBar
   const [text, setText] = useState('')
   // switch if will fetch other characters
-  const fetchSwitch: SwitchProps = {
+  const [fetchSwitch, setFetchSwitch] = useState<SwitchProps>({
     getNewData: false,
     filteredMode: false,
     getFilteredData: false
-  }
+  })
 
   // --------------------------------------
   // the page selected of the filtered page
@@ -35,6 +35,7 @@ export default function CharacterProvider({ children }: { children: ReactNode })
   const { allCharacter } = GetAllCharacter({
     baseUrl,
     fetchSwitch,
+    setFetchSwitch,
     totalPages
   })
 
@@ -79,6 +80,7 @@ export default function CharacterProvider({ children }: { children: ReactNode })
             filteredPages,
             selectFiltered,
             fetchSwitch,
+            setFetchSwitch,
             setText,
             setSelectFiltered
           }}

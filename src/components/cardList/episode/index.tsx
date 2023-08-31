@@ -1,11 +1,9 @@
 import React from 'react'
-import { UseEpisodeContext } from '../context/getContext'
+import { UseEpisodeContext } from '../../context/getContext'
 export default function EpisodeList() {
     const { useEpisodeContext } = UseEpisodeContext()
     const { data } = useEpisodeContext
 
-    // eslint-disable-next-line
-    console.log({ data })
     return (
         <div className='e-episodeList__container'>
             {data.episodes.map((item) => (

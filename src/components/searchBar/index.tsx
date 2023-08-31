@@ -3,7 +3,7 @@ import { UseCharacterContext } from '../context/getContext'
 import SearchIcon from '../../assets/Icons/Search'
 export default function SearchBar() {
   const { useCharacterContext } = UseCharacterContext()
-  const { setGetFilteredData } = useCharacterContext
+  const { setFetchSwitch } = useCharacterContext
   const { text, setText } = useCharacterContext
 
   return (
@@ -18,7 +18,10 @@ export default function SearchBar() {
         />
         <button
           className='e-searchBar__form__submit'
-          onClick={() => setGetFilteredData && setGetFilteredData(true)}
+          onClick={() => setFetchSwitch && setFetchSwitch(rest => ({
+            ...rest,
+            filteredMode: true
+          }))}
         >
           <SearchIcon className={'SearchIcon'} />
         </button>

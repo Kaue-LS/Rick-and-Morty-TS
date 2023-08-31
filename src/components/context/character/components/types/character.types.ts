@@ -20,6 +20,7 @@ interface GetAllCharacterProps {
   totalPages: number
   baseUrl: string
   fetchSwitch: SwitchProps
+  setFetchSwitch: React.Dispatch<React.SetStateAction<SwitchProps>>
 }
 
 interface SlicePageProps {

@@ -14,6 +14,7 @@ interface contextCharacterProps {
   }
   fetchSwitch: SwitchProps
   selectFiltered: number
+  setFetchSwitch?: React.Dispatch<React.SetStateAction<SwitchProps>>
   setText?: React.Dispatch<React.SetStateAction<string>>
   setSelectFiltered?: React.Dispatch<React.SetStateAction<number>>
 }

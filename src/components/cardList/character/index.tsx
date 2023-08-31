@@ -1,10 +1,10 @@
 import React from 'react'
-import { UseCharacterContext } from '../context/getContext'
+import { UseCharacterContext } from '../../context/getContext'
 
 export default function CardList() {
   const { useCharacterContext } = UseCharacterContext()
   const { character } = useCharacterContext.data
-  const { filteredMode, filteredCharacterData } = useCharacterContext;
+  const { fetchSwitch, filteredCharacterData } = useCharacterContext;
 
 
   const characterList = (
@@ -89,7 +89,7 @@ export default function CardList() {
   return (
     <section className='e-cardList'>
       <div className='e-cardList__container'>
-        {!filteredMode ? characterList : filteredCharacterList}
+        {!fetchSwitch.filteredMode ? characterList : filteredCharacterList}
       </div>
     </section>
   )

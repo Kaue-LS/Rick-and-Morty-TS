@@ -11,7 +11,7 @@ export default function PaginationDots() {
   const numberPage = getPage ? parseInt(getPage, 10) : 1
   // get context
   const { useCharacterContext } = UseCharacterContext()
-  const { data, filteredCharacterData, selectFiltered, getNewData, setGetNewData, filteredMode, setGetFilteredData, setSelectFiltered } = useCharacterContext
+  const { data, filteredCharacterData, selectFiltered, fetchSwitch, setFetchSwitch, setSelectFiltered } = useCharacterContext
   // getPages Filtered
   const { pages, filteredPages } = MakePages({
     data,
@@ -31,19 +31,22 @@ export default function PaginationDots() {
           setPageSelect(item)
 
         localStorage.setItem('pageCharacter', item.toString())
-        if (getNewData && setGetNewData) setGetNewData(false)
+        if (fetchSwitch.getNewData && setFetchSwitch) setFetchSwitch((rest) => ({
+          ...rest,
+          getNewData: false
+        }))
         window.scroll({
           top: 0,
           behavior: 'smooth',
         })
       }
     },
-    [pageSelect, getNewData, setPageSelect, setGetNewData],
+    [pageSelect, setFetchSwitch, fetchSwitch, setPageSelect],
   )
 
   return (
     <>
-      {!filteredMode && pageDots && (
+      {!fetchSwitch.filteredMode && pageDots && (
         <section className='e-paginationDots'>
           <div className={'e-paginationDots__container'}>
             {pageDots.map((item, index) => {
@@ -79,7 +82,7 @@ export default function PaginationDots() {
           </div>
         </section>
       )}
-      {filteredMode && <FilteredDots selectFiltered={selectFiltered} setGetFilteredData={setGetFilteredData} setSelectFiltered={setSelectFiltered} filteredPageDots={filteredPageDots} />}
+      {fetchSwitch.filteredMode && setFetchSwitch && <FilteredDots selectFiltered={selectFiltered} setFetchSwitch={setFetchSwitch} setSelectFiltered={setSelectFiltered} fetchSwitch={fetchSwitch} filteredPageDots={filteredPageDots} />}
 
     </>
   )

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import '../../components/styles/css/styles.css'
-import CardList from '../../components/character'
+import CardList from '../../components/cardList/character'
 import PaginationDots from '../../components/paginationDots/character'
 import SearchBar from '../../components/searchBar'
 

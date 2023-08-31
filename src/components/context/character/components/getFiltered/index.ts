@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import type { FilteredProps, CharacterProps } from '../types/character.types'
+import SlicePage from '../slicePage'
 export default function GetFilteredCharacter({
   selectFiltered,
   allCharacter,
@@ -19,17 +20,20 @@ export default function GetFilteredCharacter({
             const filteredCharacter = allCharacter.filter((item) => {
               return item?.name.toLowerCase().includes(text.toLowerCase())
             })
-            const pages = Math.ceil(filteredCharacter.length / itemsPerPage)
-            const startIndex = (selectFiltered - 1) * itemsPerPage
-            const endIndex = startIndex + itemsPerPage
-
-            // Get the items for the current page
-            const currentPageItems = filteredCharacter.slice(startIndex, endIndex)
-
-            setFilteredCharacterList(currentPageItems)
-            setFilteredPages(pages)
+            if (filteredCharacter.length) {
+              const { character, pages } = SlicePage({
+                allCharacter,
+                itemsPerPage,
+                pageSelect: 1,
+              })
+              setFilteredCharacterList(character)
+              setFilteredPages(pages)
+            } else {
+              setFilteredCharacterList([])
+              setFilteredPages(0)
+            }
           } catch (error) {
-            Error('Error occurred during fetch requests:')
+            Error('Error occurred:' + error)
           }
         } else {
           localStorage.setItem('page', '1')
