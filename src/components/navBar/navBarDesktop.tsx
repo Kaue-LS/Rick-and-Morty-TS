@@ -14,9 +14,9 @@ export const NavBarDesktop = () => {
             <h2 className='heading_2'>{'All the serie\'s data until now!'}</h2>
           </div>
           <div className='e-header__nav-container__content__section2'>
-            <a href='/'>Character</a>
-            <a href='/episode'>Episode</a>
-            <a href='/location'>Location</a>
+            <a rel='noreferrer' href='/'>Character</a>
+            <a rel='noreferrer' href='/episode'>Episode</a>
+            <a rel='noreferrer' href='/location'>Location</a>
 
           </div>
         </div>

@@ -10,11 +10,11 @@ export default function EpisodeList() {
                 <div key={item.id} className='e-episodeList__container__card' >
                     <div className='e-episodeList__container__card__name'>
                         <span>#{item.id}</span>
-                        <h3 >{item.name}</h3>
+                        <h2 >{item.name}</h2>
                     </div>
                     <div className='e-episodeList__container__card__info'>
                         <span>{item.episode}</span>
-                        <h4>{item.air_date}</h4>
+                        <h3>{item.air_date}</h3>
                     </div>
                 </div>
             ))}
