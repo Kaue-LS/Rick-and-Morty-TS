@@ -9,11 +9,14 @@
 // Components
 @import './navBar/navbar';
 @import './footer/footer';
-@import './cardList/cardList';
+@import './characterList/characterList';
+@import './episodeList/episodeList';
 @import '../scss/paginationDots/paginationDots';
 @import "../scss/searchBar/searchBar";
+
 // Pages
-@import './home/home';
+@import './character/character';
+@import './episode/episode';
 
 
 * {

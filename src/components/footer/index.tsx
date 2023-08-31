@@ -35,7 +35,7 @@ export default function Footer() {
         <Info />
         <div className='e-footer__original'>
           <h3>Original:</h3>
-          <a href='https://rickandmortyapi.com/'>Rick and Morty API</a>
+          <a target='_blank' rel='noreferrer' href='https://rickandmortyapi.com/'>Rick and Morty API</a>
         </div>
       </footer>
     </InfoProvider>

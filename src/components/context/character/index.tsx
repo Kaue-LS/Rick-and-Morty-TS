@@ -1,47 +1,67 @@
 import React, { ReactNode, useState } from 'react'
 import { characterContext } from '../getContext'
-import GetCharacter from './getCharacter'
-import GetFilteredCharacter from './getFilteredCharacter'
+import GetFilteredCharacter from './components/getFiltered'
+import GetApiPage from './components/getPage'
+import GetAllCharacter from './components/getAllCharacter.ts'
+import SlicePage from './components/slicePage'
+import { CharacterProps, SwitchProps } from './components/types/character.types'
 
-export default function DataProvider({ children }: { children: ReactNode }) {
+export default function CharacterProvider({ children }: { children: ReactNode }) {
   // base address on api
   const baseUrl = 'https://rickandmortyapi.com/api'
+  // total of items on each page
+  const itemsPerPage = 20
   // get page on localStorage
-  const getPage = localStorage.getItem('page')?.toString()
+  const getPage = localStorage.getItem('pageCharacter')?.toString()
   // text that is use on searchBar
   const [text, setText] = useState('')
   // switch if will fetch other characters
-  const [getNewData, setGetNewData] = useState<boolean>(false)
-  // if is filtered mode, searched character
-  const [filteredMode, setFilteredMode] = useState<boolean>(false)
+  const [fetchSwitch, setFetchSwitch] = useState<SwitchProps>({
+    getNewData: false,
+    filteredMode: false,
+    getFilteredData: false
+  })
+
   // --------------------------------------
-  // switch if will fetch the filtered characters
-  const [getFilteredData, setGetFilteredData] = useState<boolean>(false)
   // the page selected of the filtered page
   const [selectFiltered, setSelectFiltered] = useState<number>(1)
 
+  const pageSelect = parseInt(getPage ? getPage : '1')
+
+  // fetch totalPages of Character's API
+  const { totalPages } = GetApiPage({ baseUrl })
+
   // fetch all the characters
-  const { character, pages, allCharacter } = GetCharacter({
+  const { allCharacter } = GetAllCharacter({
     baseUrl,
-    getPage,
-    getNewData,
-    setGetNewData,
-    filteredMode,
+    fetchSwitch,
+    setFetchSwitch,
+    totalPages
   })
 
+
+  let character: CharacterProps[] = [];
+  let pages = 0;
+
+  if (allCharacter.length) {
+    const result = SlicePage({
+      allCharacter,
+      itemsPerPage,
+      pageSelect
+    });
+    character = result.character;
+    pages = result.pages;
+  }
   const data = {
-    character: character ? character : [],
+    character: character,
     pages,
   }
 
   const { filteredCharacterList, filteredPages } = GetFilteredCharacter({
-    getFilteredData,
     allCharacter,
     selectFiltered,
-    text,
-    setGetFilteredData,
-    setGetNewData,
-    setFilteredMode,
+    fetchSwitch,
+    text
   })
 
   const filteredCharacterData = {
@@ -51,21 +71,17 @@ export default function DataProvider({ children }: { children: ReactNode }) {
 
   return (
     <>
-      {data && pages ? (
+      {character.length && pages ? (
         <characterContext.Provider
           value={{
             data,
             filteredCharacterData,
-            getNewData,
             text,
-            filteredMode,
-            setText,
-            setGetNewData,
-            setGetFilteredData,
-            getFilteredData,
             filteredPages,
             selectFiltered,
-            setFilteredMode,
+            fetchSwitch,
+            setFetchSwitch,
+            setText,
             setSelectFiltered
           }}
         >

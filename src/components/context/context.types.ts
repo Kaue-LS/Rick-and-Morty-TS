@@ -1,23 +1,20 @@
-import type { CharacterProps } from './character/character.types'
+import type { CharacterProps, SwitchProps } from './character/components/types/character.types'
+import type { EpisodeProps } from './episode/episode.types'
 
 interface contextCharacterProps {
   data: {
     character: CharacterProps[]
     pages: number
   }
-  getNewData?: boolean
   text: string
-  filteredMode: boolean
-  getFilteredData: boolean
   filteredPages: number
   filteredCharacterData?: {
     filteredCharacterList: CharacterProps[]
     filteredPages: number
   }
+  fetchSwitch: SwitchProps
   selectFiltered: number
-  setGetNewData?: React.Dispatch<React.SetStateAction<boolean>>
-  setGetFilteredData?: React.Dispatch<React.SetStateAction<boolean>>
-  setFilteredMode?: React.Dispatch<React.SetStateAction<boolean>>
+  setFetchSwitch?: React.Dispatch<React.SetStateAction<SwitchProps>>
   setText?: React.Dispatch<React.SetStateAction<string>>
   setSelectFiltered?: React.Dispatch<React.SetStateAction<number>>
 }
@@ -40,4 +37,12 @@ interface infoContextProps {
   }
 }
 
-export type { CharacterProps, contextCharacterProps, infoContextProps }
+interface episodeContextProps {
+  data: {
+    episodes: EpisodeProps[]
+    pages: number
+  }
+  getNewData: boolean
+  setGetNewData?: React.Dispatch<React.SetStateAction<boolean>>
+}
+export type { CharacterProps, contextCharacterProps, infoContextProps, episodeContextProps }

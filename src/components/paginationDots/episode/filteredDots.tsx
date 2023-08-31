@@ -1,14 +1,17 @@
 import React from 'react'
 import classNames from 'classnames'
-import type { FilteredDotsProps } from './paginations.types'
+import type { FilteredDotsProps } from '../paginations.types'
 
-export default function FilteredDots({ filteredPageDots, setGetFilteredData, setSelectFiltered, selectFiltered }: FilteredDotsProps) {
+export default function FilteredDots({ filteredPageDots, fetchSwitch, setSelectFiltered, setFetchSwitch, selectFiltered }: FilteredDotsProps) {
 
   const handlePageDotFilteredClick = (item: number | string) => {
     if (typeof item === 'number' && item !== selectFiltered) {
-      if (setSelectFiltered && setGetFilteredData) {
+      if (setSelectFiltered && fetchSwitch.getFilteredData) {
         setSelectFiltered(item)
-        setGetFilteredData(true)
+        setFetchSwitch((rest) => ({
+          ...rest,
+          getFilteredData: true
+        }))
         // localStorage.setItem('pageFiltered', item.toString())
         window.scroll({
           top: 0,
@@ -18,7 +21,7 @@ export default function FilteredDots({ filteredPageDots, setGetFilteredData, set
     }
   }
 
-  return (
+  return filteredPageDots ? (
     <section className='e-paginationDots'>
       <div className={'e-paginationDots__container'}>
         {filteredPageDots.map((item, index) => {
@@ -54,5 +57,5 @@ export default function FilteredDots({ filteredPageDots, setGetFilteredData, set
         })}
       </div>
     </section>
-  )
+  ) : null
 }
