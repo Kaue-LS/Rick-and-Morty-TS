@@ -70,24 +70,20 @@ export default function CharacterProvider({ children }: { children: ReactNode })
   }
 
   return (
-    <>
-      {character.length && pages ? (
-        <characterContext.Provider
-          value={{
-            data,
-            filteredCharacterData,
-            text,
-            filteredPages,
-            selectFiltered,
-            fetchSwitch,
-            setFetchSwitch,
-            setText,
-            setSelectFiltered
-          }}
-        >
-          {children}
-        </characterContext.Provider>
-      ) : null}
-    </>
+    <characterContext.Provider
+      value={{
+        data,
+        filteredCharacterData,
+        text,
+        filteredPages,
+        selectFiltered,
+        fetchSwitch,
+        setFetchSwitch,
+        setText,
+        setSelectFiltered
+      }}
+    >
+      {children}
+    </characterContext.Provider>
   )
 }
