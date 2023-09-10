@@ -7,8 +7,9 @@ function App() {
   return (
     <div className='Content'>
       <NavBar />
+      <h1 className='Title'>Rick And Morty API</h1>
       <Routes />
-      <Footer/>
+      <Footer />
     </div>
   )
 }

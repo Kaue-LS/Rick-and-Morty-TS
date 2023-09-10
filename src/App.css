@@ -36,3 +36,19 @@
     transform: rotate(360deg);
   }
 }
+.Content {
+  background-color: #e4e4e4;
+}
+.Title {
+  text-align: center;
+  padding: 40px 0;
+  line-height: 40px;
+  font-weight: 700;
+  font-size: 36px;
+  color: #272b33;
+}
+@media screen and (max-width: 1024px) {
+  .Title {
+    padding: 30px 20px;
+  }
+}
