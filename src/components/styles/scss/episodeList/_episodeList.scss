@@ -11,7 +11,7 @@
         }
 
         @include tablet {
-            padding: 20px;
+            padding: 20px 0;
         }
 
         &__card {
@@ -29,7 +29,9 @@
             @include tablet {
                 flex-direction: column;
                 padding: 20px;
+                border-radius: 0;
             }
+
 
             h2 {
                 font-size: $font-h2;
